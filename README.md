@@ -1,92 +1,90 @@
 # DevOps Training
 
+My personal training repository for DevOps tools such as Gitlab CI/CD, Podman, Kubernetes, Prometheus and many more.
 
+Currently, my knowledge only covers bits of Software Architecture, Software Development, Data Engineering, HPC and Artificial Intelligence.
 
-## Getting started
+I want to extend it to DevOps tools because these are crucial in an IT organization, and kinda awesome. And I also want to learn Rust and Go.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Steps
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Here are the exercises I plan to do in order to train myself. Each step will be summarized in [reports](reports).
 
-## Add your files
+### 1. Setting Up a Repository (GitLab)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- [X] Set up a local rootless GitLab repository initialized with this repository's mirror.
+- [X] Mirror the GitLab repository to GitHub using SSH.
+- [X] Protect the `main` branch to work only using branches.
+- [ ] Add workflow (TODO/DOING/REVIEW) labels and automatically update them.
 
-```
-cd existing_repo
-git remote add origin http://localhost/Shynamo/devops-training.git
-git branch -M main
-git push -uf origin main
-```
+### 2. Building an Application (Rust & Go)
 
-## Integrate with your tools
+- [ ] Create a library of random matrix multiplication in Rust using [BLAS](https://www.openblas.net/) and or [LAPACK](https://github.com/Reference-LAPACK/lapack).
+- [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the previous library.
 
-- [ ] [Set up project integrations](http://localhost/Shynamo/devops-training/-/settings/integrations)
+### 3. Containerize the Application (Podman)
 
-## Collaborate with your team
+- [ ] Build and run this application in a Debian container.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### 4. Build & Test the Application (CI/CD)
 
-## Test and Deploy
+- [ ] Use GitLab CI/CD to build the application
+- [ ] Run functional tests in main using CI/CD.
+- [ ] Add code coverage, linters and formatter.
 
-Use the built-in continuous integration in GitLab.
+### 5. Gather Metrics
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+- [ ] Measure MFlops, matrix sizes and steps, HTTP status code and response time and:
+   - [ ] Make the HTTP metrics scrapable by Prometheus
+   - [ ] Push the matrixes metrics to Prometheus gateway
+   - [ ] Make the last matrixes metrics available in the response
+- [ ] Add logging in the Go server.
+  - [ ] Collect the logging using a specialized tools, and also send it to Prometheus.
+- [ ] Create Grafana Dashboards and Playlist.
 
-***
+### 6. Deploy the Application and Prometheus (Kubernetes)
 
-# Editing this README
+- [ ] Use Kubernetes to spawn:
+    - The application in a single node
+    - A container with Prometheus and Grafana
+    - A container for logging management
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+### 7. Run in Cluster (Kubernetes)
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+- [ ] Use Kubernetes to spawn:
+    - The application in multiple nodes
+    - A load-balancer before the application nodes
+    - A container with Prometheus and Grafana
+    - A container for logging management
+- [ ] Spawn all of the above, but all same matrix multiplication should be splitted over multiple containers, possibly over multiple hosts.
 
-## Name
-Choose a self-explaining name for your project.
+### 7. Set-up Alerts (Kubernetes & Grafana)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+- [ ] Use Grafana to set-up alerts on critical errors.
+- [ ] Use Kubernetes to set-up alerts on critical errors.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### 8. Actually Deploy the Application (AWS & GCP)
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- [ ] Deploy the application in a free Amazon Web Server with restrictions over RAM and disk usage inside the app'.
+  - [ ] Deploy a cluster of the application using Kubernetes.
+- [ ] Deploy the application in a free Google Cloud Platform with restrictions over RAM and disk usage.
+- [ ] Run the deployment to both platforms whenever the branch `production` is merged.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Secure the Application (Kubernetes ?)
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- [ ] Add a user/password creation tool and secure the passwords.
+- [ ] Add an administrator role that can be attached to users.
+- [ ] Use a certificate and HTTPS if possible.
+- [ ] Encrypt all of the containers, the encryption key must be different for each of them.
+- [ ] Encrypt the logging container disk.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Documentations
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- Rust: <https://doc.rust-lang.org/stable/book/>
+- Go: <https://go.dev/doc/tutorial/getting-started>
+- BLAS: <https://www.openblas.net/>
+- LAPACK: <https://github.com/Reference-LAPACK/lapack>
+- Podman: <https://docs.podman.io/en/latest/>
+- Prometheus: <https://prometheus.io/docs/introduction/overview/>
+- Grafana: <https://grafana.com/docs/grafana/latest/getting-started/>
+- Kubernetes: https://kubernetes.io/docs/setup/
