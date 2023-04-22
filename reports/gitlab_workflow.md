@@ -72,12 +72,26 @@ First, to make sure labels are setup automatically I use [issue template](https:
 
 However, issue template are not yet supported by GitLab, even it their team [is working on it](https://gitlab.com/gitlab-org/gitlab/-/issues/7749). So I must make the templates in my `DevOps Training` project.
 
-To do so, I created [issue templates](../.gitlab/issue_templates) in [.gitlab/issue_templates](.gitlab/issue_templates) and [merge request templates](../.gitlab/merge_request_templates) in [.gitlab/merge_request_templates](.gitlab/merge_request_templates) in this repository. It order to [set a template by default](https://docs.gitlab.com/ee/user/project/description_templates.html#set-a-default-template-for-merge-requests-and-issues), I used a symbolic link
-to `Default.md`:
+To do so, I created [issue templates](../.gitlab/issue_templates) in [.gitlab/issue_templates](.gitlab/issue_templates) and [merge request templates](../.gitlab/merge_request_templates) in [.gitlab/merge_request_templates](.gitlab/merge_request_templates) in this repository.
+
+It order to [set a template by default](https://docs.gitlab.com/ee/user/project/description_templates.html#set-a-default-template-for-merge-requests-and-issues), I tried using a symbolic link to `Default.md`:
 
 ```cmd
-TODO: ln -s
+baptiste:~/Projects/GitLab/devops/devops-training/.gitlab/merge_request_templates$ ln -s template.md Default.md ln -s template.md Default.md
 ```
+
+Spoiler: it does not work.
+
+<p align="center">
+  <img src="assets/gitlab_template_fail.png" />
+</p>
+
+
+Only the content of the file is used, which is the path written is the symbolic link.
+
+So, instead of a symbolic link I simply rename `template.md` into `Default.md`.
+
+
 
 TODO: Capture d'écrans
 
