@@ -1,19 +1,19 @@
 # Setting Up GitLab local server
 
-I did not want to install a bare metal GitLab server on my machine because I wanted to be able to move or remove it freely and easily, so I tried to install it in a container.
+I did not want to install a bare metal GitLab server on my machine because I wanted to be able to move, remove or update it freely and easily, so I installed it in a container.
 
-Podman, a rootless container technology was already installed in my computer, and fortunately a [GitLab container](https://docs.gitlab.com/ee/install/docker.html) exists !
+I chose [Podman](https://podman.io/): a rootless container technology. Fortunately a [GitLab container](https://docs.gitlab.com/ee/install/docker.html) exists !
 
-Because I want to stay in user mode I followed GitLab's documentation and created a directory used for persistent GitLab files.
+Because I want to enforce rootless setup, I followed GitLab's documentation and created a directory used for persistent GitLab files.
 
 ## Install GitLab
 
 ```
 mkdir GitLabServer
-export GITLAB_HOME=$PWD/GitLabServer
+export GITLAB_HOME=$HOME/GitLabServer
 ```
 
-I then installed GitLab using the `podman` CLI:
+I installed GitLab using the `podman` CLI:
 
 ```bash
 podman run --detach \
@@ -28,11 +28,11 @@ podman run --detach \
   gitlab/gitlab-ee:latest
 ```
 
-I ran into and error: apparently the logs, data and config directories needs to exist in order for the container to be able to use them:
+I ran into the following error.
 
     Error: statfs /home/baptiste/GitLabServer/logs: no such file or directory
 
-I then created the required directories:
+Apparently the `logs`, `data` and `config` directories need to exist in order for the container to be able to use them, so I created the required directories:
 
 ```bash
 mkdir $GITLAB_HOME/config
@@ -40,7 +40,8 @@ mkdir $GITLAB_HOME/logs
 mkdir $GITLAB_HOME/data
 ```
 
-Another error, because I run in user mode I am not allowed to use ports < 1024, so I remapped the ports forwarding by prefixing with 20:
+Another error, because I run in rootless mode I am not allowed to use ports < 1024.
+I remapped the ports forwarding by prefixing with 20:
 
 ```bash
 podman run --detach \
@@ -57,9 +58,13 @@ podman run --detach \
 
 And boom ! GitLab was up and running ! I didn't know containers were so easy to manipulate and use to install software !
 
+However, this port mapping caused many issues for cloning repositories and for LFS.
+For production environment, I would recommend using an [NGINX](https://www.nginx.com/) with port redirection based on your server's domain in a `docker-compose` pod.
+This may be implemented in a future report.
+
 ## Configuration
 
-Now I could connect to GitLab on the url `http://localhost:2080/users/sign_in`.
+I could connect to GitLab on the url `http://localhost:2080/users/sign_in`.
 To sign in, I first needed to connect as `root` using this command to retrieve its password:
 
     podman exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
@@ -68,14 +73,15 @@ To sign in, I first needed to connect as `root` using this command to retrieve i
   <img src="assets/gitlab_login.png" />
 </p>
 
-Now that I could play with GitLab admin panel, I first deactivated sign ups, then created my Shynamo user and finally changed the root's password and kept it in my password manager.
+Then, I could play with GitLab admin panel. First I deactivated sign ups, then created my Shynamo user and finally changed the root's password and kept it in my password manager.
 
 <p align="center">
   <img src="assets/gitlab_admin_page.png" />
 </p>
 
-After spending some time exploring GitLab's administrator options and possibilities, I tried to login as Shynamo, but the email was not sent !
-At first I tried to setup STMP, but this was not mandatory so I instead used [this documentation](https://docs.gitlab.com/ee/user/profile/account/create_accounts.html#create-users-in-admin-area) to enforce a default password.
+After spending some time exploring GitLab's administrator options and possibilities, I tried to login as Shynamo. An email should have been sent to setup my password but it was not !
+
+At first I tried to setup SMTP, but this was not mandatory so I instead used [this documentation](https://docs.gitlab.com/ee/user/profile/account/create_accounts.html#create-users-in-admin-area) to enforce a default password.
 
 <p align="center">
   <img src="assets/gitlab_password.png" />
@@ -88,13 +94,13 @@ Then, tried to initialize my repository by mirroring the one already create on [
   <img src="assets/gitlab_password.png" />
 </p>
 
-I just needed to retrieve my SSH key using `cat ~/.ssh/id_rsa.pub` and was ready to go. 
+I just needed to retrieve my SSH key using `cat ~/.ssh/id_rsa.pub` then [upload it to GitLab](https://docs.gitlab.com/ee/user/ssh.html) and I was ready to go.
 
 ### Mirror to GitHub
 
-Why did I choose GitLab over GitHub to work ? Because it is widely used in IT companies with private instances, and I prefer its workflow regarding Issues, Merge Requests, Tags and CI/CD. Also I am more used to it than GitHub and wanted to try to setup my own instance.
+Why did I choose GitLab over GitHub to work ? Because it is widely used in IT companies with private instances, and I prefer its workflow regarding DevOps and project management. Also, I am more used to its GUI than GitHub and wanted to try to setup my own instance.
 
-GitLab provide a GUI to mirror repositories, however things are not as easy as they seem to mirror to GitHub.
+GitLab provides a GUI to mirror repositories, however things are not as easy as they seem to mirror to GitHub.
 
 <p align="center">
   <img src="assets/gitlab_mirror.png" />
@@ -112,7 +118,7 @@ To this one
 
 #### SSH Public key
 
-To allow my local GitLab server to push to my GitHub repository, I need to add its SSH key to my GitHub account because they key used to mirror repositories is the one of GitLab, not yours. Of course, you would not send you private key...
+To allow my local GitLab server to push to my GitHub repository, I need to add its SSH key to my GitHub account because they key used to mirror repositories is the one of GitLab, not yours. Of course, you should not send you private key !
 
 Once I [found my server's SSH Key](https://docs.gitlab.com/ee/user/project/repository/mirror/#get-your-ssh-public-key) then [added it to GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account#adding-a-new-ssh-key-to-your-account), I could successfully mirror my local repository !
 
@@ -120,7 +126,7 @@ Once I [found my server's SSH Key](https://docs.gitlab.com/ee/user/project/repos
   <img src="assets/gitlab_mirror_success.png" />
 </p>
 
-Now I can fully work on my local GitLab instance and my public GitHub account will be up-to-date without any action required !
+Now I can fully work on my local GitLab instance and my public GitHub account will be up-to-date without any action required.
 
 I needed to update my `~/.ssh/config` to interact with my local GitLab:
 
@@ -150,9 +156,9 @@ I used [Git LFS](https://docs.gitlab.com/ee/topics/git/lfs/) to store report ass
 
 But when trying to push, I encountered the following error:
 
-  batch response: Post "http://localhost/Shynamo/DevOpsTraining.git/info/lfs/objects/batch": dial tcp 127.0.0.1:80: connect: connection refused
-  Uploading LFS objects:   0% (0/4), 0 B | 0 B/s, done.
-  error: failed to push some refs to 'ssh://localhost:2022/Shynamo/DevOpsTraining.git'
+    batch response: Post "http://localhost/Shynamo/DevOpsTraining.git/info/lfs/objects/batch": dial tcp 127.0.0.1:80: connect: connection refused
+    Uploading LFS objects:   0% (0/4), 0 B | 0 B/s, done.
+    error: failed to push some refs to 'ssh://localhost:2022/Shynamo/DevOpsTraining.git'
 
 This is because the address provided by the container expect port 80 to be used by default, so the port is not specified in the URL. But Git LFS resolve URLs on the host, so the port specification is missing and Git LFS tries to push references on `127.0.0.1:80` instead of `127.0.0.1:2080`.
 
@@ -190,7 +196,7 @@ They affected my `.git/config` as follows:
 
 This would require me to use login/password every time and LFS object is pushed but it is acceptable.
 
-And boom, I can now send LFS objects in my GitLab server:
+And boom, I have been able to send LFS objects in my GitLab server:
 
     baptiste:~/Projects/GitHub/DevOpsTraining$ git push
     Username for 'http://localhost:2080': Shynamo
@@ -209,13 +215,11 @@ And boom, I can now send LFS objects in my GitLab server:
 
 The downside of this approach is that every user who need to setup their Git config to be able to use Git FLS.
 
-I production, it may be better to setup a reverse proxy such as [NGINX](https://www.nginx.com/) to redirect ports to make it transparent for the users, but keep the container running in user mode to enhance security.
-
 ## Automatically start at system reboot
 
-An issue I encountered was that when rebooting my system, the GitLab image was not automatically starting.
+An issue was encountered after rebooting my system: the GitLab image was not automatically starting.
 
-To do so, I will use `systemd` following a well written [tutorial](https://linuxhandbook.com/autostart-podman-containers/):
+To do so, I used `systemd` following a well written [tutorial](https://linuxhandbook.com/autostart-podman-containers/):
 
 ```shell
 baptiste:~$ podman generate systemd --new --name gitlab -f
@@ -227,7 +231,7 @@ baptiste:~$ systemctl --user enable container-gitlab.service
 Created symlink /home/baptiste/.config/systemd/user/default.target.wants/container-gitlab.service → /home/baptiste/.config/systemd/user/container-gitlab.service.
 ```
 
-Basically, these commands will create a `systemd` config file to automatically start my gitlab container at startup, and then setup the config and enable the service. Here is the content of the `container-gitlab.service` config file:
+Basically, these commands create a `systemd` config file to automatically start my gitlab container at startup, and then setup the config and enable the service. Here is the content of the `container-gitlab.service` config file:
 
 ```toml
 # container-gitlab.service
@@ -258,22 +262,22 @@ WantedBy=default.target
 
 ## Security Side Notes
 
-You may wonder why I insisted to install GitLab in user mode. This is because in a production environment, if an attack on a GitLab vulnerability success you don't want the attacker to gain root access.
+You may wonder why I insisted to install GitLab in user mode. This is because in a production environment, if an attack on a GitLab vulnerability success you don't want the attacker to gain root access on the server.
 
 The attacker will first gain access inside the container. Then, if he manages to escape from the container to the host, he would have ***user*** access. Because GitLab is a software, you can run its container using a user with minimal privileges.
 
-For example, as an admin you can:
+For example, you could:
 
 1. Create a `gitLab` user
-2. Only give that user the minimum privileges
+2. Only give that user minimum privileges:
    - Create a group `softwares`
    - Add gitlab to that group
    - Give basically no access whatsoever to users or the `software` group
    - Give `gitlab` user RW access only in its home directory, where the data is located
-3. Redirect ports 22, 80 and 443 traffic from GitLab to the ports bound on the host.
-4. Encrypt `gitlab`'s home directory using a hash based on this users information (UID, UID+4*GUID, whatever...)
+3. Redirect ports 22, 80 and 443 traffic from GitLab to the ports bound in the container using a rootful NGINX in a pod with you GitLab container
+4. Encrypt `gitlab`'s home directory
 
-That way, even if the attacker manages to perform two successive attacks, his privilege gain race would result in having only access to `gitlab`'s home directory and OS libs and bins.
+That way, even if the attacker manages to perform two successive attacks, his privilege gain race would result in having only access to `gitlab`'s home directory and OS libs, bins and configs.
 
 This access management can also be done for every other software stored in you server, to protect datas of a service when another service has successfully been attacked.
 
