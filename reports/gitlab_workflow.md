@@ -89,11 +89,13 @@ Spoiler: it does not work.
 
 Only the content of the file is used, which is the path written is the symbolic link.
 
-So, instead of a symbolic link I simply rename `template.md` into `Default.md`.
+So, instead of a symbolic link I simply rename `template.md` into `Default.md`, and then it works just fine.
 
+<p align="center">
+  <img src="assets/gitlab_template_success.png" />
+</p>
 
-
-TODO: Capture d'écrans
+Unfortunately, the `/unlabel ~Draft ~TODO ~DOING ~DONE` in the merge request template does not work as it seems like issue metadatas are copied after the description's quick actions.
 
 #### Label Update On Merge Requests
 
