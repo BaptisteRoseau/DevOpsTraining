@@ -1,7 +1,5 @@
 # Setting Up A GitLab Server
 
-Table of Contents
-
 [TOC]
 
 ## Summary
