@@ -15,9 +15,9 @@ podman run --detach \
   gitlab/gitlab-ee:latest
 ```
 
-Well, I cannot click in my issue and merge request links on my [GitLab local server](setting_up_gitlab.md) because of non-standard ports redirection. This was also the cause of LFS issues so it is time to fix this.
+Well, I cannot click in my issue and merge request links on my [GitLab local server](setting_up_gitlab.md) because of non-standard ports redirection. This was also the cause of LFS issues so it is time to fix this by making the port redirection transparent.
 
-## NGINX Proxy For HTTP
+## NGINX Proxy For HTTP And HTTPS
 
 To fix this issue, I will use a rootful proxy [NGINX](https://www.nginx.com/) to forward ports based on their domain name, with the following configuration in `/root/nginx.conf`:
 
@@ -102,3 +102,5 @@ This uses port 2022 by default for the user `git` on `shynamo-gitlab` (resolved 
 When running my GitLab container, I used the option ` --hostname localhost`. With the NGINX's server I need to use `shynamo-gitlab` instead.
 
 If possible, I would like to use the same container instead of re-creating one from the image.
+
+TODO: gitlab config URL

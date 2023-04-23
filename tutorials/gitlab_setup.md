@@ -1,5 +1,11 @@
 # Setting Up A GitLab Server
 
+Table of Contents
+
+[TOC]
+
+## Summary
+
 As an IT company you may need to setup your own [GitLab](https://about.gitlab.com/)'s instance.
 
 Doing so is very easy using a [GitLab container](https://hub.docker.com/r/gitlab/gitlab-ee/) following [GitLab's official documentation](https://docs.gitlab.com/ee/install/docker.html) with rootful [Podman](https://podman.io/) or [Docker](https://www.docker.com/), but when it comes to secure and give access to your GitLab instance there are lots of pitfalls to fall into.
