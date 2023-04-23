@@ -102,16 +102,3 @@ This uses port 2022 by default for the user `git` on `shynamo-gitlab` (resolved 
 When running my GitLab container, I used the option ` --hostname localhost`. With the NGINX's server I need to use `shynamo-gitlab` instead.
 
 If possible, I would like to use the same container instead of re-creating one from the image.
-
-```bash
-podman run --detach \
-  --hostname localhost \
-  --publish 20443:443 --publish 2080:80 --publish 2022:22 \
-  --name gitlab \
-  --restart always \
-  --volume $GITLAB_HOME/config:/etc/gitlab \
-  --volume $GITLAB_HOME/logs:/var/log/gitlab \
-  --volume $GITLAB_HOME/data:/var/opt/gitlab \
-  --shm-size 256m \
-  gitlab/gitlab-ee:latest
-```

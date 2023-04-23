@@ -2,31 +2,36 @@
 
 As an IT company you may need to setup your own [GitLab](https://about.gitlab.com/)'s instance.
 
-Doing so is very easy using a [GitLab container](https://hub.docker.com/r/gitlab/gitlab-ee/) with rootful [Podman](https://podman.io/) or [Docker](https://www.docker.com/), but when it comes to secure and give access to your GitLab instance there are lots of pitfalls to fall into.
+Doing so is very easy using a [GitLab container](https://hub.docker.com/r/gitlab/gitlab-ee/) following [GitLab's official documentation](https://docs.gitlab.com/ee/install/docker.html) with rootful [Podman](https://podman.io/) or [Docker](https://www.docker.com/), but when it comes to secure and give access to your GitLab instance there are lots of pitfalls to fall into.
 
 This tutorial provides steps to setup your own secure GitLab server.
 
 For this tutorial, we will assume that your company will run its GitLab instance at `1.2.3.4`, which domain name is `my.company.gitlab.server`, using the following port mapping:
 
-- `2080` (host) -> `80` (container)
 - `2022` (host) -> `22` (container)
 - `20443` (host) -> `443` (container)
 
 You can of course change any of there values depending on you environment.
 
-*It is also strongly recommended to use a VPN to make `1.2.3.4` only available to your coworkers, but this setup is outside of the scope of this tutorial.*
+*Notes:*
+
+- *Port 80 will not be forwarded because HTTPS only should be used.*
+- *It is also strongly recommended to use a VPN to make `1.2.3.4` only available to your coworkers, but this setup is outside of the scope of this tutorial.*
 
 ## Create A gitlab User (Optional)
 
 ### Why Creating A New User ?
 
-A great security practice is to restrict permissions and access to the script necessary.
+A great security practice is to restrict permissions and access to the strict necessary.
 
-That is, you could create a `software` group on your server, and give its users no access whatsoever. Each user of the `software` would only have access to its own home directory, and restrict its permissions from other users.
+That is, you could create a `software` group on your server, and give its users no access whatsoever. Each user of `software` would only have access to its own home directory, and restrict its permissions from other users.
 
 With that setup, each software on your server is isolated, and if an attacker manages to gain access through a software vulnerability, his access would be restricted to the software's home directory, and privilege escalation would be much harder.
 
 ### Setup The gitlab User
+
+============
+WIP
 
 TODO: Create user and group to restrict permissions
 - Group `software`
@@ -46,6 +51,22 @@ As root:
 TODO: specify GID and remove recursively access to other users from the group
 
 - `chmod 700 -R $HOME`
+
+============
+
+## Create An SSL/TLS Certificate
+
+If you already have an SSL/TLS certificate, you can skip this step.
+
+If not, we will create one using [Let's Encrypt](https://letsencrypt.org/fr/) to allow traffic over HTTPS for our GitLab server. You can run the following commands anywhere, even you local machine, as the `1.2.3.4` server only needs the resulting certificate and key files.
+
+### Install Let's Encrypt
+
+TODO
+
+### Generate The Certificate
+
+TODO
 
 ## Installing Podman
 
@@ -94,7 +115,7 @@ Then, run the container:
 ```bash
 podman run --detach \
   --hostname my.company.gitlab.server \
-  --publish 20443:443 --publish 2080:80 --publish 2022:22 \
+  --publish 20443:443 --publish 2022:22 \
   --name gitlab \
   --restart always \
   --volume $GITLAB_HOME/config:/etc/gitlab:Z \
@@ -104,9 +125,35 @@ podman run --detach \
   gitlab/gitlab-ee:latest
 ```
 
+================================
+
+TODO: SSL/TLS Setup: (Remove this part when done)
+
+To configure SSL/TLS in a GitLab container, you can follow these steps:
+
+1. Create SSL/TLS certificates and keys for your domain using a tool like Let's Encrypt or OpenSSL.
+
+2. Copy the certificate and key files to a location on the host system, such as `/etc/gitlab/ssl`.
+
+3. Update the `gitlab.rb` configuration file, which is located in the `/etc/gitlab` directory, to include the following lines:
+
+```
+external_url 'https://your-domain.com'
+nginx['ssl_certificate'] = "/etc/gitlab/ssl/your-domain.com.crt"
+nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/your-domain.com.key"
+```
+
+Replace `your-domain.com` with the actual domain name for your GitLab instance.
+
+4. Reconfigure GitLab using the `gitlab-ctl reconfigure` command to apply the changes to the configuration file.
+
+After completing these steps, your GitLab instance should be accessible over HTTPS using the SSL/TLS certificates you configured.
+
+================================
+
 You can see the server is running using `podman ps` or `podman logs -f gitlab` commands.
 
-### Automatically Restart On Reboot
+### Automatically Restart GitLab On Reboot
 
 `--restart always` option allows your GitLab instance to restart on crash, but not on system reboot. To make it restart on reboot, use `systemd` with the following commands:
 
@@ -155,9 +202,65 @@ Note that port 22 remapping will be fixed using [SSH client configs](#ssh-client
 
 ### Reverse Proxy Setup
 
-TODO: Run NGINX Proxy
+NGINX container will run a root, so you can store its config anywhere unsensitive. 
 
-TODO: Do not forward HTTP port and always use HTTPS
+For this tutorial, we will store it in `/root/nginx/nginx.conf`:
+
+```nginx
+events {
+  worker_connections  4096;
+}
+
+http {
+ server {
+   listen 1.2.3.4:443;
+   listen [::1]:443 ipv6only=on;
+
+   server_name my.company.gitlab.server;
+
+   location / {
+       proxy_pass http://1.2.3.4:20443;
+       proxy_set_header Host $host;
+   }
+ }
+}
+```
+
+Then, run the following command **as root** to run the container:
+
+```bash
+podman run \
+  --detach \
+  --restart always \
+  -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf \
+  --name nginx \
+  nginx
+```
+
+### Automatically Restart NGINX On Reboot
+
+[Same as GitLab](#automatically-restart-gitlab-on-reboot), we will use `systemd` but this time rootful.
+
+Run the following command **as root** on your server:
+
+```cmd
+podman generate systemd --new --name nginx -f
+cp container-nginx.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable container-nginx
+```
+
+To verify the service has correctly been setup, use **as root**:
+
+```cmd
+$ systemctl status container-nginx
+○ container-nginx.service - Podman container-nginx.service
+     Loaded: loaded (/etc/systemd/system/container-nginx.service; enabled; vendor preset: enabled)
+     Active: inactive (dead)
+       Docs: man:podman-generate-systemd(1)
+```
+
+Same as for GitLab, don't worry about the `Active: inactive (dead)`.
 
 ## SSH Client Configurations
 
@@ -175,8 +278,12 @@ Host my.company.gitlab.server
 
 For more information about what does this configuration, please read the [SSH config documentation](https://www.ssh.com/academy/ssh/config#commonly-used-configuration-options).
 
-## HTTPS Setup
+## Domain Name Client Configuration
 
-(TODO)
+If the domain name `my.company.gitlab.server` is not directly available to your users using a VPN or a DNS, each user must add it in their DNS.
 
-This section has not been written and tested yet, but in production environment you simply cannot use HTTP and should **always** use HTTPS. You could even remove the HTTP `80` port in the GitLab's `--publish 2080:80` option, as well as in the NGINX configuration file after HTTPS setup.
+On Linux, the simplest way is to add the following line in `/etc/hosts`:
+
+```cmd
+1.2.3.1 my.company.gitlab.server
+```
