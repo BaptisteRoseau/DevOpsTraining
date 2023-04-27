@@ -1,5 +1,9 @@
 # NGINX Proxy
 
+Table of contents:
+
+[TOC]
+
 Remember that I used the following command to run GitLab ?
 
 ```bash

@@ -1,5 +1,9 @@
 # Managing GitLab Workflow
 
+Table of contents:
+
+[TOC]
+
 ## Groups
 
 I created a `DevOps` group in GitLab to be able to manage multiple repositories for this project if necessary, and manage labels, CI/CD pipelines and runners at the group level.

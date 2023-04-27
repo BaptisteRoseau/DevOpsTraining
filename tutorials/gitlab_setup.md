@@ -1,7 +1,9 @@
 # Setting Up A GitLab Server
 
-[TOC]
+**Table of contents:
 
+[TOC]
+**
 ## Summary
 
 As an IT company you may need to setup your own [GitLab](https://about.gitlab.com/)'s instance.
@@ -163,7 +165,7 @@ You can see the server is running using `podman ps` or `podman logs -f gitlab` c
 
 ```bash
 podman generate systemd --new --name gitlab -f
-mkdir ~/.config/systemd/user/
+mkdir -p ~/.config/systemd/user/
 mv container-gitlab.service ~/.config/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable container-gitlab.service
