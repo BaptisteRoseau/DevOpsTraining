@@ -62,6 +62,7 @@ No need to put the NGINX container in a pod with my GitLab container as one is r
 $ sudo podman run \
     --detach \
     --restart always \
+    --network host \
     -v /root/nginx.conf:/etc/nginx/nginx.conf \
     --name nginx \
     nginx

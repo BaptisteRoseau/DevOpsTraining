@@ -107,7 +107,6 @@ Unfortunately, the `/unlabel ~Draft ~TODO ~DOING ~DONE` in the merge request tem
 
 TODO
 
-
 ## CI/CD Pipelines
 
 ### License Checker

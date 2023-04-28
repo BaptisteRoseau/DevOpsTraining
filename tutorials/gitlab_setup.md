@@ -238,6 +238,7 @@ Then, run the following command **as root** to run the container:
 podman run \
   --detach \
   --restart always \
+  --network host \
   -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf \
   --name nginx \
   nginx
