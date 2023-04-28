@@ -6,9 +6,19 @@ Currently, my knowledge only covers bits of Software Architecture, Software Deve
 
 I want to extend it to DevOps tools because these are crucial in an IT organization, and kinda awesome. And I also want to learn Rust and Go.
 
-## Steps
+## Reports
 
 Here are the exercises I plan to do in order to train myself. Each step will be summarized in [reports](reports).
+
+<!-- TODO: TOC of the reports-->
+
+## Tutorials
+
+Once in a while a sanitized tutorial will be written to summarize a step in [tutorials](tutorials).
+
+<!-- TODO: TOC of the tutorials -->
+
+## Steps
 
 ### 1. Setting Up a Repository (GitLab)
 
@@ -25,6 +35,9 @@ Here are the exercises I plan to do in order to train myself. Each step will be 
   - [ ] Within Containers (Podman-in-Podman).
 - [ ] Use GitLab CI/CD pipelines to run linting:
   - [ ] Markdown
+  - [ ] Known words and grammar (english)
+  - [ ] Rust (when working on [the app](#3-building-an-application-rust--go))
+  - [ ] Go (when working on [the app](#3-building-an-application-rust--go))
 - [ ] Run the linter jobs, if and only, files of their according type have been modified.
 - [ ] Run the linter jobs only on the files that have been modified.
 - [ ] Add code coverage and formatter if possible. Coverage can come later with the application.
@@ -41,9 +54,9 @@ Here are the exercises I plan to do in order to train myself. Each step will be 
 ### 5. Gather Metrics
 
 - [ ] Measure MFlops, matrix sizes and steps, HTTP status code and response time and:
-   - [ ] Make the HTTP metrics scrapable by Prometheus
-   - [ ] Push the matrixes metrics to Prometheus gateway
-   - [ ] Make the last matrixes metrics available in the response
+  - [ ] Make the HTTP metrics scrapable by Prometheus
+  - [ ] Push the matrixes metrics to Prometheus gateway
+  - [ ] Make the last matrixes metrics available in the response
 - [ ] Add logging in the Go server.
   - [ ] Collect the logging using a specialized tools, and also send it to Prometheus.
 - [ ] Create Grafana Dashboards and Playlist.
@@ -51,17 +64,17 @@ Here are the exercises I plan to do in order to train myself. Each step will be 
 ### 6. Deploy the Application and Prometheus (Kubernetes)
 
 - [ ] Use Kubernetes to spawn:
-    - The application in a single node
-    - A container with Prometheus and Grafana
-    - A container for logging management
+  - The application in a single node
+  - A container with Prometheus and Grafana
+  - A container for logging management
 
 ### 7. Run in Cluster (Kubernetes)
 
 - [ ] Use Kubernetes to spawn:
-    - The application in multiple nodes
-    - A load-balancer before the application nodes
-    - A container with Prometheus and Grafana
-    - A container for logging management
+  - The application in multiple nodes
+  - A load-balancer before the application nodes
+  - A container with Prometheus and Grafana
+  - A container for logging management
 - [ ] Spawn all of the above, but all same matrix multiplication should be splitted over multiple containers, possibly over multiple hosts.
 
 ### 7. Set-up Alerts (Kubernetes & Grafana)
