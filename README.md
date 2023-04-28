@@ -15,22 +15,28 @@ Here are the exercises I plan to do in order to train myself. Each step will be 
 - [X] Set up a local rootless GitLab repository initialized with this repository's mirror.
 - [X] Mirror the GitLab repository to GitHub using SSH.
 - [X] Protect the `main` branch to work only using branches.
-- [ ] Add workflow (TODO/DOING/REVIEW) labels and automatically update them.
+- [X] Add workflow (TODO/DOING/REVIEW) labels.
 
-### 2. Building an Application (Rust & Go)
+### 2. Setting Up DevOps Foundations (CI/CD)
+
+- [ ] Setup GitLab Runners:
+  - [ ] On the host (rootless Podman).
+  - [ ] Within VMs (VirtualBox).
+  - [ ] Within Containers (Podman-in-Podman).
+- [ ] Use GitLab CI/CD pipelines to run linting:
+  - [ ] Markdown
+- [ ] Run the linter jobs, if and only, files of their according type have been modified.
+- [ ] Run the linter jobs only on the files that have been modified.
+- [ ] Add code coverage and formatter if possible. Coverage can come later with the application.
+
+### 3. Building an Application (Rust & Go)
 
 - [ ] Create a library of random matrix multiplication in Rust using [BLAS](https://www.openblas.net/) and or [LAPACK](https://github.com/Reference-LAPACK/lapack).
 - [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the previous library.
 
-### 3. Containerize the Application (Podman)
+### 4. Containerize the Application (Podman)
 
 - [ ] Build and run this application in a Debian container.
-
-### 4. Build & Test the Application (CI/CD)
-
-- [ ] Use GitLab CI/CD to build the application
-- [ ] Run functional tests in main using CI/CD.
-- [ ] Add code coverage, linters and formatter.
 
 ### 5. Gather Metrics
 
