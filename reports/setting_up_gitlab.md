@@ -119,7 +119,7 @@ To allow my local GitLab server to push to my GitHub repository, I need to add i
 
 Once I [found my server's SSH Key](https://docs.gitlab.com/ee/user/project/repository/mirror/#get-your-ssh-public-key) then [added it to GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account#adding-a-new-ssh-key-to-your-account), I could successfully mirror my local repository !
 
-![pngassets/gitlab_mirror_success.png#center)
+![gitlab_mirror_success](assets/gitlab_mirror_success.png#center)
 
 Now I can fully work on my local GitLab instance and my public GitHub account will be up-to-date without any action required.
 
