@@ -30,11 +30,11 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
 ### 2. Setting Up DevOps Foundations (CI/CD)
 
 - [ ] Setup GitLab Runners:
-  - [ ] On the host (rootless Podman).
+  - [X] On the host (rootless Podman).
   - [ ] Within VMs (VirtualBox).
   - [ ] Within Containers (Podman-in-Podman).
 - [ ] Use GitLab CI/CD pipelines to run linting:
-  - [ ] Markdown
+  - [X] Markdown
   - [ ] Known words and grammar (english)
   - [ ] Rust (when working on [the app](#3-building-an-application-rust--go))
   - [ ] Go (when working on [the app](#3-building-an-application-rust--go))
