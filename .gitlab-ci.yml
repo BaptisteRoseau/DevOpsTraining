@@ -9,8 +9,8 @@ stages:
 markdown_lint:
   stage: test
   image: ruby:latest
-  #rules:
-  #  - if: '$CI_COMMIT_MODIFIED_FILES =~ /\.md$/'
+  rules:
+    - if: '$CI_COMMIT_MODIFIED_FILES =~ /\.md$/'
   script:
     - gem install mdl
     - mdl $(find . -type f -name "*.md")
@@ -21,11 +21,11 @@ markdown_link:
   script:
     - npm install -g markdown-link-check
     - echo '{}' > /tmp/config.json
-    - markdown-link-check -c /tmp/config.json $(find . -type f -name "*.md")
+    - markdown-link-check -c /tmp/config.json $(find . -type f -name "*.md" -not -path ".git*")
 
 spelling:
   stage: test
   image: node:latest
   script:
     - npm install -g cspell@latest
-    - cspell --color --locale "en,fr" --config .ci/cpsell/config.json "README.md reports/** tutorials/**"
+    - cspell --color --locale "en,fr" --config .ci/cpsell/config.json config.json $CI_COMMIT_MODIFIED_FILES
