@@ -18,7 +18,8 @@ markdown_link:
   image: node:latest
   script:
     - npm install -g markdown-link-check
-    - markdown-link-check $(find . -type f -name "*.md")
+    - echo '{}' > /tmp/config.json
+    - markdown-link-check -c /tmp/config.json $(find . -type f -name "*.md")
 
 spelling:
   stage: test
