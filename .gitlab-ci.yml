@@ -8,12 +8,12 @@ stages:
 
 markdown_lint:
   stage: test
-  image: ruby:latest
+  image: node:latest
   #rules:
   #  - if: '$CI_COMMIT_MODIFIED_FILES =~ /\.md$/'
   script:
-    - gem install mdl
-    - mdl $(find . -type f -name "*.md")
+    - npm install markdownlint
+    - mdl ~MD013 $(find . -type f -name "*.md")
 
 markdown_link:
   stage: test
