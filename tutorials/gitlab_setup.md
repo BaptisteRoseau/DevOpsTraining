@@ -26,7 +26,7 @@ You can of course change any of there values depending on you environment.
 
 ## Create A gitlab User (Optional)
 
-### Why Creating A New User ?
+### Why Creating A New User
 
 A great security practice is to restrict permissions and access to the strict necessary.
 
@@ -151,9 +151,9 @@ To configure SSL/TLS in a GitLab container, you can follow these steps:
 
 1. Create SSL/TLS certificates and keys for your domain using a tool like Let's Encrypt or OpenSSL.
 
-2. Copy the certificate and key files to a location on the host system, such as `/etc/gitlab/ssl`.
+1. Copy the certificate and key files to a location on the host system, such as `/etc/gitlab/ssl`.
 
-3. Update the `gitlab.rb` configuration file, which is located in the `/etc/gitlab` directory, to include the following lines:
+1. Update the `gitlab.rb` configuration file, which is located in the `/etc/gitlab` directory, to include the following lines:
 
 ```cmd
 external_url 'https://your-domain.com'
@@ -163,7 +163,7 @@ nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/your-domain.com.key"
 
 Replace `your-domain.com` with the actual domain name for your GitLab instance.
 
-4. Reconfigure GitLab using the `gitlab-ctl reconfigure` command to apply the changes to the configuration file.
+1. Reconfigure GitLab using the `gitlab-ctl reconfigure` command to apply the changes to the configuration file.
 
 After completing these steps, your GitLab instance should be accessible over HTTPS using the SSL/TLS certificates you configured.
 
@@ -186,8 +186,8 @@ systemctl --user enable container-gitlab.service
 These commands will:
 
 1. Create a `systemd` service configuration file
-2. Add this configuration in your user services
-3. Enable the `container-gitlab` service
+1. Add this configuration in your user services
+1. Enable the `container-gitlab` service
 
 And now your GitLab instance will restart on reboot.
 
@@ -205,7 +205,7 @@ Don't worry about the `Active: inactive (dead)`: the service will be effective o
 
 ## NGINX Reverse Proxy
 
-### Why Using A Reverse Proxy ?
+### Why Using A Reverse Proxy
 
 Because GitLab container is running rootless, ports are not actually bound on standard 80, 443 and 22, but the container is not aware of that. Because of this mapping, you will encounter very annoying issues such as:
 
