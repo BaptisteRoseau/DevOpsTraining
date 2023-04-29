@@ -6,11 +6,11 @@ Table of contents:
 
 ## Summary
 
-As an IT company you may need to setup your own [GitLab](https://about.gitlab.com/)'s instance.
+As an IT company you may need to set up your own [GitLab](https://about.gitlab.com/)'s instance.
 
 Doing so is very easy using a [GitLab container](https://hub.docker.com/r/gitlab/gitlab-ee/) following [GitLab's official documentation](https://docs.gitlab.com/ee/install/docker.html) with rootful [Podman](https://podman.io/) or [Docker](https://www.docker.com/), but when it comes to secure and give access to your GitLab instance there are lots of pitfalls to fall into.
 
-This tutorial provides steps to setup your own secure GitLab server.
+This tutorial provides steps to set up your own secure GitLab server.
 
 For this tutorial, we will assume that your company will run its GitLab instance at `1.2.3.4`, which domain name is `my.company.gitlab.server`, using the following port mapping:
 
@@ -22,7 +22,7 @@ You can of course change any of there values depending on you environment.
 *Notes:*
 
 - *Port 80 will not be forwarded because HTTPS only should be used.*
-- *It is also strongly recommended to use a VPN to make `1.2.3.4` only available to your coworkers, but this setup is outside of the scope of this tutorial.*
+- *It is also strongly recommended to use a VPN to make `1.2.3.4` only available to your coworkers, but this set up is outside of the scope of this tutorial.*
 
 ## Create A gitlab User (Optional)
 
@@ -32,9 +32,9 @@ A great security practice is to restrict permissions and access to the strict ne
 
 That is, you could create a `software` group on your server, and give its users no access whatsoever. Each user of `software` would only have access to its own home directory, and restrict its permissions from other users.
 
-With that setup, each software on your server is isolated, and if an attacker manages to gain access through a software vulnerability, his access would be restricted to the software's home directory, and privilege escalation would be much harder.
+With that set up, each software on your server is isolated, and if an attacker manages to gain access through a software vulnerability, his access would be restricted to the software's home directory, and privilege escalation would be much harder.
 
-### Setup The gitlab User
+### Set up The gitlab User
 
 ============
 WIP
@@ -145,7 +145,7 @@ More information about GitLab used ports [here](https://docs.gitlab.cn/14.0/omni
 
 ================================
 
-TODO: SSL/TLS Setup: (Remove this part when done)
+TODO: SSL/TLS Set up: (Remove this part when done)
 
 To configure SSL/TLS in a GitLab container, you can follow these steps:
 
@@ -217,7 +217,7 @@ To fix these issues, the port forwarding have to be transparent to the clients, 
 
 Note that port 22 remapping will be fixed using [SSH client configs](#ssh-client-configurations).
 
-### Reverse Proxy Setup
+### Reverse Proxy Set up
 
 NGINX container will run a root, so you can store its config anywhere unsensitive.
 
@@ -268,7 +268,7 @@ systemctl daemon-reload
 systemctl enable container-nginx
 ```
 
-To verify the service has correctly been setup, use **as root**:
+To verify the service has correctly been set up, use **as root**:
 
 ```cmd
 $ systemctl status container-nginx
@@ -282,7 +282,7 @@ Same as for GitLab, don't worry about the `Active: inactive (dead)`.
 
 ## SSH Client Configurations
 
-Finally, each of the clients (read coworker) who needs to interract with your GitLab instance have to add the following lines in their `~/.ssh/config` file:
+Finally, each of the clients (read coworker) who needs to interact with your GitLab instance have to add the following lines in their `~/.ssh/config` file:
 
 ```cmd
 # GitLab Server

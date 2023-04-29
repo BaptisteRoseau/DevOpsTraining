@@ -1,4 +1,4 @@
-# Setup a GitLab Runner
+# Set Up A GitLab Runner
 
 As I like to make things harder but more secure, I tried to install GitLab Runner in a rootless Podman container.
 
@@ -16,10 +16,10 @@ dpkg -i gitlab-runner_${arch}.deb
 
 TODO: Redaction
 
-## Podman à la 
+## Fixes
 
 --network = host in the config
 
 - Explain the Issue
 
-Essayer de mettre une IP bidon dans le etc/host et l'utiliser plutôt que 127.0.0.1 qui est casse gueule.
+Try to put an IP in /etc/host and use it instead of 127.0.0.1.
