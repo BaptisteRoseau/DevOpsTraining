@@ -8,14 +8,14 @@ Remember that I used the following command to run GitLab ?
 
 ```bash
 podman run --detach \
-  --hostname localhost \
-  --publish 20443:443 --publish 2080:80 --publish 2022:22 \
-  --name gitlab \
-  --restart always \
-  --volume $GITLAB_HOME/config:/etc/gitlab \
-  --volume $GITLAB_HOME/logs:/var/log/gitlab \
-  --volume $GITLAB_HOME/data:/var/opt/gitlab \
-  --shm-size 256m \
+    --hostname localhost \
+    --publish 20443:443 --publish 2080:80 --publish 2022:22 \
+    --name gitlab \
+    --restart always \
+    --volume $GITLAB_HOME/config:/etc/gitlab \
+    --volume $GITLAB_HOME/logs:/var/log/gitlab \
+    --volume $GITLAB_HOME/data:/var/opt/gitlab \
+    --shm-size 256m \
   gitlab/gitlab-ee:latest
 ```
 

@@ -17,14 +17,14 @@ I installed GitLab using the `podman` CLI:
 
 ```bash
 podman run --detach \
-  --hostname shynamo-gitlab \
-  --publish 443:443 --publish 80:80 --publish 22:22 \
-  --name gitlab \
-  --restart always \
-  --volume $GITLAB_HOME/config:/etc/gitlab \
-  --volume $GITLAB_HOME/logs:/var/log/gitlab \
-  --volume $GITLAB_HOME/data:/var/opt/gitlab \
-  --shm-size 256m \
+    --hostname shynamo-gitlab \
+    --publish 443:443 --publish 80:80 --publish 22:22 \
+    --name gitlab \
+    --restart always \
+    --volume $GITLAB_HOME/config:/etc/gitlab \
+    --volume $GITLAB_HOME/logs:/var/log/gitlab \
+    --volume $GITLAB_HOME/data:/var/opt/gitlab \
+    --shm-size 256m \
   gitlab/gitlab-ee:latest
 ```
 
@@ -47,14 +47,14 @@ I remapped the ports forwarding by prefixing with 20:
 
 ```bash
 podman run --detach \
-  --hostname shynamo-gitlab \
-  --publish 20443:443 --publish 2080:80 --publish 2022:22 \
-  --name gitlab \
-  --restart always \
-  --volume $GITLAB_HOME/config:/etc/gitlab \
-  --volume $GITLAB_HOME/logs:/var/log/gitlab \
-  --volume $GITLAB_HOME/data:/var/opt/gitlab \
-  --shm-size 256m \
+    --hostname shynamo-gitlab \
+    --publish 20443:443 --publish 2080:80 --publish 2022:22 \
+    --name gitlab \
+    --restart always \
+    --volume $GITLAB_HOME/config:/etc/gitlab \
+    --volume $GITLAB_HOME/logs:/var/log/gitlab \
+    --volume $GITLAB_HOME/data:/var/opt/gitlab \
+    --shm-size 256m \
   gitlab/gitlab-ee:latest
 ```
 
@@ -275,10 +275,10 @@ For example, you could:
 
 1. Create a `gitLab` user
 1. Only give that user minimum privileges:
-  - Create a group `softwares`
-  - Add gitlab to that group
-  - Give basically no access whatsoever to users or the `software` group
-  - Give `gitlab` user RW access only in its home directory, where the data is located
+    - Create a group `softwares`
+    - Add gitlab to that group
+    - Give basically no access whatsoever to users or the `software` group
+    - Give `gitlab` user RW access only in its home directory, where the data is located
 1. Redirect ports 22, 80 and 443 traffic from GitLab to the ports bound in the container using a rootful NGINX in a pod with you GitLab container
 1. Encrypt `gitlab`'s home directory
 

@@ -123,21 +123,21 @@ Then, run the container:
 
 ```bash
 podman run --detach \
-  --hostname my.company.gitlab.server \
-  --publish 20443:443 \
-  --publish 2080:80 \
-  --publish 2022:22 \
-  --publish 9418:9418 \
-  --publish 9090:9090 \
-  --publish 5000:5000 \
-  --publish 20465:465 \
-  --publish 9418:9418 \
-  --name gitlab \
-  --restart always \
-  --volume $GITLAB_HOME/config:/etc/gitlab:Z \
-  --volume $GITLAB_HOME/logs:/var/log/gitlab:Z \
-  --volume $GITLAB_HOME/data:/var/opt/gitlab:Z \
-  --shm-size 256m \
+    --hostname my.company.gitlab.server \
+    --publish 20443:443 \
+    --publish 2080:80 \
+    --publish 2022:22 \
+    --publish 9418:9418 \
+    --publish 9090:9090 \
+    --publish 5000:5000 \
+    --publish 20465:465 \
+    --publish 9418:9418 \
+    --name gitlab \
+    --restart always \
+    --volume $GITLAB_HOME/config:/etc/gitlab:Z \
+    --volume $GITLAB_HOME/logs:/var/log/gitlab:Z \
+    --volume $GITLAB_HOME/data:/var/opt/gitlab:Z \
+    --shm-size 256m \
   gitlab/gitlab-ee:latest
 ```
 
@@ -247,11 +247,11 @@ Then, run the following command **as root** to run the container:
 
 ```bash
 podman run \
-  --detach \
-  --restart always \
-  --network host \
-  -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf \
-  --name nginx \
+    --detach \
+    --restart always \
+    --network host \
+    -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf \
+    --name nginx \
   nginx
 ```
 

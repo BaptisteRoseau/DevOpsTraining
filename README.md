@@ -35,14 +35,14 @@ in [tutorials](tutorials).
 ### 2. Setting Up DevOps Foundations (CI/CD)
 
 - [ ] Setup GitLab Runners:
-  - [X] On the host (rootless Podman).
-  - [ ] Within VMs (VirtualBox).
-  - [ ] Within Containers (Podman-in-Podman).
+    - [X] On the host (rootless Podman).
+    - [ ] Within VMs (VirtualBox).
+    - [ ] Within Containers (Podman-in-Podman).
 - [ ] Use GitLab CI/CD pipelines to run linting:
-  - [X] Markdown
-  - [X] Known words
-  - [ ] Grammar
-  - [X] Find Broken Links in .md files
+    - [X] Markdown
+    - [X] Known words
+    - [ ] Grammar
+    - [X] Find Broken Links in .md files
 - [X] Run the linter jobs, if and only, files of their according type have been modified.
 - [X] Run the linter jobs only on the files that have been modified.
 
@@ -54,8 +54,8 @@ using [BLAS](https://www.openblas.net/) and or
 - [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the
 previous library.
 - [ ] Use GitLab CI/CD pipelines to run linting:
-  - [ ] Rust
-  - [ ] Go
+    - [ ] Rust
+    - [ ] Go
 - [ ] Add tests coverage
 - [ ] Add code formatter if possible
 
@@ -66,27 +66,27 @@ previous library.
 ### 5. Gather Metrics
 
 - [ ] Measure MFlops, matrix sizes and steps, HTTP status code and response time and:
-  - [ ] Make the HTTP metrics scraped by Prometheus
-  - [ ] Push the matrixes' metrics to Prometheus gateway
-  - [ ] Make the last matrixes' metrics available in the response
+    - [ ] Make the HTTP metrics scraped by Prometheus
+    - [ ] Push the matrixes' metrics to Prometheus gateway
+    - [ ] Make the last matrixes' metrics available in the response
 - [ ] Add logging in the Go server.
-  - [ ] Collect the logging using a specialized tool, and also send it to Prometheus.
+    - [ ] Collect the logging using a specialized tool, and also send it to Prometheus.
 - [ ] Create Grafana Dashboards and Playlist.
 
 ### 6. Deploy the Application and Prometheus (Kubernetes)
 
 - [ ] Use Kubernetes to spawn:
-  - The application in a single node
-  - A container with Prometheus and Grafana
-  - A container for logging management
+    - The application in a single node
+    - A container with Prometheus and Grafana
+    - A container for logging management
 
 ### 7. Run in Cluster (Kubernetes)
 
 - [ ] Use Kubernetes to spawn:
-  - The application in multiple nodes
-  - A load-balancer before the application nodes
-  - A container with Prometheus and Grafana
-  - A container for logging management
+    - The application in multiple nodes
+    - A load-balancer before the application nodes
+    - A container with Prometheus and Grafana
+    - A container for logging management
 - [ ] Spawn all the above, but all same matrix multiplication should be split over
 - [ ] multiple containers, possibly over multiple hosts.
 
@@ -99,7 +99,7 @@ previous library.
 
 - [ ] Deploy the application in a free Amazon Web Server with restrictions over RAM and
 disk usage inside the app'.
-  - [ ] Deploy a cluster of the application using Kubernetes.
+    - [ ] Deploy a cluster of the application using Kubernetes.
 - [ ] Deploy the application in a free Google Cloud Platform with restrictions over RAM
 and disk usage.
 - [ ] Run the deployment to both platforms whenever the branch `production` is merged.

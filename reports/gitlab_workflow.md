@@ -46,11 +46,12 @@ My workflow will be as follows:
 
 There are four **stages** of a task:
 
-- Whenever a task comes to mind, I will create a [GitLab Issue](https://docs.gitlab.com/ee/user/project/issues/):
-  - Issues have the label `Draft` until the are described enough to be sent into `TODO`
-  - `TODO` issues are ready to develop and could be implemented by anyone knowing the project thanks to their description
-  - `DOING` are all started issues, even if they are paused
-  - `DONE` is for issues that have been resolved and merged
+Whenever a task comes to mind, I will create a [GitLab Issue](https://docs.gitlab.com/ee/user/project/issues/):
+
+- Issues have the label `Draft` until the are described enough to be sent into `TODO`
+- `TODO` issues are ready to develop and could be implemented by anyone knowing the project thanks to their description
+- `DOING` are all started issues, even if they are paused
+- `DONE` is for issues that have been resolved and merged
 
 `Draft` allows me to quickly create an issue having just a clear title, without describing it yet and break my focus on the current task.
 
