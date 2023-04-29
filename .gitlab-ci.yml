@@ -10,8 +10,7 @@ markdown_lint:
   stage: test
   image: ruby:latest
   rules:
-    - changes:
-      - *.md
+    - if: '$CI_COMMIT_MODIFIED_FILES =~ /\.md$/'
   script:
     - gem install mdl
     - mdl $(find . -type f -name "*.md")
@@ -29,4 +28,4 @@ spelling:
   image: node:latest
   script:
     - npm install -g cspell@latest
-    - cspell --color --locale "en,fr" --config .ci/cpsell/config.json config.json "**"
+    - cspell --color --locale "en,fr" --config .ci/cpsell/config.json config.json $CI_COMMIT_MODIFIED_FILES
