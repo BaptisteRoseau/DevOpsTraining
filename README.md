@@ -37,6 +37,7 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
   - [X] Markdown
   - [X] Known words
   - [ ] Grammar
+  - [ ] Find Broken Links in .md files
 - [ ] Run the linter jobs, if and only, files of their according type have been modified.
 - [ ] Run the linter jobs only on the files that have been modified.
 - [ ] Add code coverage and formatter if possible. Coverage can come later with the application.
