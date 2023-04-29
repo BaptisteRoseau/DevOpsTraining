@@ -14,35 +14,33 @@ As this changed the URL, I had to update my `.git/config`'s URLs to replace `Shy
 
 ```toml
 [core]
-	repositoryformatversion = 0
-	filemode = true
-	bare = false
-	logallrefupdates = true
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
 [remote "origin"]
-	url = ssh://git@localhost:2022/devops/devops-training.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
+    url = ssh://git@localhost:2022/devops/devops-training.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "main"]
-	remote = origin
-	merge = refs/heads/main
+    remote = origin
+    merge = refs/heads/main
 [lfs]
-	repositoryformatversion = 0
-	url = "http://localhost:2080/devops/devops-training.git/info/lfs"
-	pushurl = "http://localhost:2080/devops/devops-training.git/info/lfs"
+    repositoryformatversion = 0
+    url = "http://localhost:2080/devops/devops-training.git/info/lfs"
+    pushurl = "http://localhost:2080/devops/devops-training.git/info/lfs"
 [url "http://localhost:2080/"]
-	insteadOf = http://localhost/
+    insteadOf = http://localhost/
 [lfs "http://localhost:2080/Shynamo/devops/devops-training.git/info/lfs"]
-	access = basic
+    access = basic
 [lfs "http://localhost:2080/devops/devops-training.git/info/lfs"]
-	access = basic
+    access = basic
 ```
 
 ### Group Labels
 
 I created the following labels in the group namespace:
 
-<p align="center">
-  <img src="assets/gitlab_labels.png" />
-</p>
+![gitlab_labels](assets/gitlab_labels.png)
 
 My workflow will be as follows:
 
@@ -68,7 +66,7 @@ Each issue must have at lease a **kind** and a **stage** (`Draft` or `TODO`) whe
 
 Also, I want to automate the label update from `TODO` to `DOING` when a merge request a created from an issue, and from `DOING` to `DONE` when all the merge requests of an issue have been merged.
 
-I my project I will also close the Issues with the former, but in a team the `DONE` tasks should be reviewed by a team leader to know what is going on and to make sure he/she sees it before closing the issue.
+In my project I will also close the Issues with the former, but in a team the `DONE` tasks should be reviewed by a team leader to know what is going on and to make sure he/she sees it before closing the issue.
 
 #### Issue Templates
 
@@ -86,18 +84,13 @@ baptiste:~/Projects/GitLab/devops/devops-training/.gitlab/merge_request_template
 
 Spoiler: it does not work.
 
-<p align="center">
-  <img src="assets/gitlab_template_fail.png" />
-</p>
-
+![gitlab_template_fail](assets/gitlab_template_fail.png)
 
 Only the content of the file is used, which is the path written is the symbolic link.
 
 So, instead of a symbolic link I simply rename `template.md` into `Default.md`, and then it works just fine.
 
-<p align="center">
-  <img src="assets/gitlab_template_success.png" />
-</p>
+![gitlab_template_success](assets/gitlab_template_success.png)
 
 Unfortunately, the `/unlabel ~Draft ~TODO ~DOING ~DONE` in the merge request template does not work as it seems like issue metadatas are copied after the description's quick actions.
 
