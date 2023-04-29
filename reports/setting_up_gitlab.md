@@ -274,13 +274,13 @@ The attacker will first gain access inside the container. Then, if he manages to
 For example, you could:
 
 1. Create a `gitLab` user
-2. Only give that user minimum privileges:
-   - Create a group `softwares`
-   - Add gitlab to that group
-   - Give basically no access whatsoever to users or the `software` group
-   - Give `gitlab` user RW access only in its home directory, where the data is located
-3. Redirect ports 22, 80 and 443 traffic from GitLab to the ports bound in the container using a rootful NGINX in a pod with you GitLab container
-4. Encrypt `gitlab`'s home directory
+1. Only give that user minimum privileges:
+  - Create a group `softwares`
+  - Add gitlab to that group
+  - Give basically no access whatsoever to users or the `software` group
+  - Give `gitlab` user RW access only in its home directory, where the data is located
+1. Redirect ports 22, 80 and 443 traffic from GitLab to the ports bound in the container using a rootful NGINX in a pod with you GitLab container
+1. Encrypt `gitlab`'s home directory
 
 That way, even if the attacker manages to perform two successive attacks, his privilege gain race would result in having only access to `gitlab`'s home directory and OS libraries, binaries and configs.
 
