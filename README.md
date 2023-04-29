@@ -1,20 +1,25 @@
 # DevOps Training
 
-My personal training repository for DevOps tools such as Gitlab CI/CD, Podman, Kubernetes, Prometheus and many more.
+My personal training repository for DevOps tools such as GitLab CI/CD, Podman, Kubernetes,
+Prometheus and many more.
 
-Currently, my knowledge only covers bits of Software Architecture, Software Development, Data Engineering, HPC and Artificial Intelligence.
+Currently, my knowledge only covers bits of Software Architecture, Software Development,
+Data Engineering, HPC and Artificial Intelligence.
 
-I want to extend it to DevOps tools because these are crucial in an IT organization, and kinda awesome. And I also want to learn Rust and Go.
+I want to extend it to DevOps tools because these are crucial in an IT organization,
+and kinda awesome. And I also want to learn Rust and Go.
 
 ## Reports
 
-Here are the exercises I plan to do in order to train myself. Each step will be summarized in [reports](reports).
+Here are the exercises I plan to do in order to train myself.
+Each step will be summarized in [reports](reports).
 
 <!-- TODO: TOC of the reports-->
 
 ## Tutorials
 
-Once in a while a sanitized tutorial will be written to summarize a step in [tutorials](tutorials).
+Once in a while, a sanitized tutorial will be written to summarize a step
+in [tutorials](tutorials).
 
 <!-- TODO: TOC of the tutorials -->
 
@@ -43,8 +48,11 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
 
 ### 3. Building an Application (Rust & Go)
 
-- [ ] Create a library of random matrix multiplication in Rust using [BLAS](https://www.openblas.net/) and or [LAPACK](https://github.com/Reference-LAPACK/lapack).
-- [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the previous library.
+- [ ] Create a library of random matrix multiplication in Rust
+using [BLAS](https://www.openblas.net/) and or
+[LAPACK](https://github.com/Reference-LAPACK/lapack).
+- [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the
+previous library.
 - [ ] Use GitLab CI/CD pipelines to run linting:
   - [ ] Rust
   - [ ] Go
@@ -58,11 +66,11 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
 ### 5. Gather Metrics
 
 - [ ] Measure MFlops, matrix sizes and steps, HTTP status code and response time and:
-  - [ ] Make the HTTP metrics scrapable by Prometheus
-  - [ ] Push the matrixes metrics to Prometheus gateway
-  - [ ] Make the last matrixes metrics available in the response
+  - [ ] Make the HTTP metrics scraped by Prometheus
+  - [ ] Push the matrixes' metrics to Prometheus gateway
+  - [ ] Make the last matrixes' metrics available in the response
 - [ ] Add logging in the Go server.
-  - [ ] Collect the logging using a specialized tools, and also send it to Prometheus.
+  - [ ] Collect the logging using a specialized tool, and also send it to Prometheus.
 - [ ] Create Grafana Dashboards and Playlist.
 
 ### 6. Deploy the Application and Prometheus (Kubernetes)
@@ -79,7 +87,8 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
   - A load-balancer before the application nodes
   - A container with Prometheus and Grafana
   - A container for logging management
-- [ ] Spawn all of the above, but all same matrix multiplication should be splitted over multiple containers, possibly over multiple hosts.
+- [ ] Spawn all the above, but all same matrix multiplication should be split over
+- [ ] multiple containers, possibly over multiple hosts.
 
 ### 7. Set-up Alerts (Kubernetes & Grafana)
 
@@ -88,9 +97,11 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
 
 ### 8. Actually Deploy the Application (AWS & GCP)
 
-- [ ] Deploy the application in a free Amazon Web Server with restrictions over RAM and disk usage inside the app'.
+- [ ] Deploy the application in a free Amazon Web Server with restrictions over RAM and
+disk usage inside the app'.
   - [ ] Deploy a cluster of the application using Kubernetes.
-- [ ] Deploy the application in a free Google Cloud Platform with restrictions over RAM and disk usage.
+- [ ] Deploy the application in a free Google Cloud Platform with restrictions over RAM
+and disk usage.
 - [ ] Run the deployment to both platforms whenever the branch `production` is merged.
 
 ### Secure the Application (Kubernetes ?)
@@ -98,7 +109,7 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
 - [ ] Add a user/password creation tool and secure the passwords.
 - [ ] Add an administrator role that can be attached to users.
 - [ ] Use a certificate and HTTPS if possible.
-- [ ] Encrypt all of the containers, the encryption key must be different for each of them.
+- [ ] Encrypt all the containers, the encryption key must be different for each of them.
 - [ ] Encrypt the logging container disk.
 
 ## Documentations
@@ -110,4 +121,4 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
 - Podman: <https://docs.podman.io/en/latest/>
 - Prometheus: <https://prometheus.io/docs/introduction/overview/>
 - Grafana: <https://grafana.com/docs/grafana/latest/getting-started/>
-- Kubernetes: https://kubernetes.io/docs/setup/
+- Kubernetes: <https://kubernetes.io/docs/setup/>
