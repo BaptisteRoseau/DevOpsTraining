@@ -6,12 +6,19 @@ stages:
 - test
 - deploy
 
-markdownlint:
+markdown_lint:
   stage: test
   image: ruby:latest
   script:
     - gem install mdl
     - mdl $(find . -type f -name "*.md")
+
+markdown_link:
+  stage: test
+  image: node:latest
+  script:
+    - npm install -g markdown-link-check
+    - markdown-link-check $(find . -type f -name "*.md")
 
 spelling:
   stage: test
