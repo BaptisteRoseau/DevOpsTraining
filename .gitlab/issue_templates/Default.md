@@ -1,4 +1,5 @@
-# MR: %{source_branch} -> %{target_branch}
+# Issue
+
 <!-- Kind: select one bellow -->
 /label ~Feature
 /label ~Bug
