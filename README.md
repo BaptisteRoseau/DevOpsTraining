@@ -35,9 +35,8 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
   - [ ] Within Containers (Podman-in-Podman).
 - [ ] Use GitLab CI/CD pipelines to run linting:
   - [X] Markdown
-  - [ ] Known words and grammar (english)
-  - [ ] Rust (when working on [the app](#3-building-an-application-rust--go))
-  - [ ] Go (when working on [the app](#3-building-an-application-rust--go))
+  - [X] Known words
+  - [ ] Grammar
 - [ ] Run the linter jobs, if and only, files of their according type have been modified.
 - [ ] Run the linter jobs only on the files that have been modified.
 - [ ] Add code coverage and formatter if possible. Coverage can come later with the application.
@@ -46,6 +45,9 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
 
 - [ ] Create a library of random matrix multiplication in Rust using [BLAS](https://www.openblas.net/) and or [LAPACK](https://github.com/Reference-LAPACK/lapack).
 - [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the previous library.
+- [ ] Use GitLab CI/CD pipelines to run linting:
+  - [ ] Rust
+  - [ ] Go
 
 ### 4. Containerize the Application (Podman)
 
