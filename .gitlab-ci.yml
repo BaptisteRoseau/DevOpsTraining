@@ -18,4 +18,4 @@ spelling:
   image: node:latest
   script:
     - npm install -g cspell@latest
-    - cspell --color --locale "en" --config .ci/cpsell config.json "**"
+    - cspell --color --locale "en" --config .ci/cpsell/config.json config.json "**"
