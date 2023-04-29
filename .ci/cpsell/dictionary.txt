@@ -17,9 +17,9 @@ publickey
 pushurl
 pydantic
 repositoryformatversion
+rootful
 sdnotify
 shynamo
 Shynamo
 statfs
 unlabel
-rootful
