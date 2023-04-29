@@ -28,4 +28,4 @@ spelling:
   image: node:latest
   script:
     - npm install -g cspell@latest
-    - cspell --color --locale "en,fr" --config .ci/cpsell/config.json "README.md tutorials/** reports/**"
+    - cspell --color --locale "en,fr" --config .ci/cpsell/config.json README.md tutorials/** reports/**
