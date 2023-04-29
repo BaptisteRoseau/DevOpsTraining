@@ -6,9 +6,16 @@ stages:
 - test
 - deploy
 
-sast:
+markdownlint:
   stage: test
+  image: ruby:latest
   script:
-    - apt-get update && apt-get install -y ruby
     - gem install mdl
     - mdl $(find . -type f -name "*.md")
+
+spelling:
+  stage: test
+  image: node:latest
+  script:
+    - npm install -g cspell@latest
+    - cspell --color --locale "en" --config .ci/cpsell config.json "**"
