@@ -4,7 +4,7 @@ I did not want to install a bare metal GitLab server on my machine because I wan
 
 I chose [Podman](https://podman.io/): a rootless container technology. Fortunately a [GitLab container](https://docs.gitlab.com/ee/install/docker.html) exists !
 
-Because I want to enforce rootless setup, I followed GitLab's documentation and created a directory used for persistent GitLab files.
+Because I want to enforce rootless set up, I followed GitLab's documentation and created a directory used for persistent GitLab files.
 
 ## Install GitLab
 
@@ -66,7 +66,7 @@ This may be implemented in a future report.
 
 ## Configuration
 
-I could connect to GitLab on the url `http://localhost:2080/users/sign_in`.
+I could connect to GitLab on the URL `http://localhost:2080/users/sign_in`.
 To sign in, I first needed to connect as `root` using this command to retrieve its password:
 
 ```cmd
@@ -75,13 +75,13 @@ podman exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 
 ![gitlab_login](assets/gitlab_login.png#center)
 
-Then, I could play with GitLab admin panel. First I deactivated sign ups, then created my Shynamo user and finally changed the root's password and kept it in my password manager.
+Then, I could play with GitLab admin panel. First I deactivated sign-ups, then created my Shynamo user and finally changed the root's password and kept it in my password manager.
 
 ![gitlab_admin_page](assets/gitlab_admin_page.png#center)
 
-After spending some time exploring GitLab's administrator options and possibilities, I tried to login as Shynamo. An email should have been sent to setup my password but it was not !
+After spending some time exploring GitLab's administrator options and possibilities, I tried to log in as Shynamo. An email should have been sent to set up my password, but it was not !
 
-At first I tried to setup SMTP, but this was not mandatory so I instead used [this documentation](https://docs.gitlab.com/ee/user/profile/account/create_accounts.html#create-users-in-admin-area) to enforce a default password.
+At first, I tried to set up SMTP, but this was not mandatory so I instead used [this documentation](https://docs.gitlab.com/ee/user/profile/account/create_accounts.html#create-users-in-admin-area) to enforce a default password.
 
 ![gitlab_password](assets/gitlab_password.png#center)
 
@@ -93,7 +93,7 @@ I just needed to retrieve my SSH key using `cat ~/.ssh/id_rsa.pub` then [upload 
 
 ### Mirror to GitHub
 
-Why did I choose GitLab over GitHub to work ? Because it is widely used in IT companies with private instances, and I prefer its workflow regarding DevOps and project management. Also, I am more used to its GUI than GitHub and wanted to try to setup my own instance.
+Why did I choose GitLab over GitHub to work ? Because it is widely used in IT companies with private instances, and I prefer its workflow regarding DevOps and project management. Also, I am more used to its GUI than GitHub and wanted to try to set up my own instance.
 
 GitLab provides a GUI to mirror repositories, however things are not as easy as they seem to mirror to GitHub.
 
@@ -132,11 +132,11 @@ PreferredAuthentications publickey
 IdentityFile ~/.ssh/id_rsa.pub
 ```
 
-Next I did setup my SSH key on my local GitLab account to ease repositories usage. I want to clone the repositories using SSH instead of HTTP because this is more secure, and I will not have to type any password when interacting with remote repositories.
+Next I did set up my SSH key on my local GitLab account to ease repositories usage. I want to clone the repositories using SSH instead of HTTP because this is more secure, and I will not have to type any password when interacting with remote repositories.
 
 ### Git LFS troubleshooting
 
-I used [Git LFS](https://docs.gitlab.com/ee/topics/git/lfs/) to store report assets more efficiently. It can be easily setup using the following commands:
+I used [Git LFS](https://docs.gitlab.com/ee/topics/git/lfs/) to store report assets more efficiently. It can be easily set up using the following commands:
 
 ```cmd
 $ git clone ssh://git@localhost:2022/Shynamo/DevOpsTraining.git
@@ -197,7 +197,7 @@ They affected my `.git/config` as follows:
   insteadOf = http://localhost/
 ```
 
-This would require me to use login/password every time and LFS object is pushed but it is acceptable.
+This would require me to use login/password every time and LFS object is pushed, but it is acceptable.
 
 And boom, I have been able to send LFS objects in my GitLab server:
 
@@ -218,7 +218,7 @@ To ssh://localhost:2022/Shynamo/DevOpsTraining.git
   8490f9b..48238aa  main -> main
 ```
 
-The downside of this approach is that every user who need to setup their Git config to be able to use Git FLS.
+The downside of this approach is that every user who need to set up their Git config to be able to use Git FLS.
 
 ## Automatically start at system reboot
 
@@ -236,7 +236,7 @@ baptiste:~$ systemctl --user enable container-gitlab.service
 Created symlink /home/baptiste/.config/systemd/user/default.target.wants/container-gitlab.service → /home/baptiste/.config/systemd/user/container-gitlab.service.
 ```
 
-Basically, these commands create a `systemd` config file to automatically start my gitlab container at startup, and then setup the config and enable the service. Here is the content of the `container-gitlab.service` config file:
+Basically, these commands create a `systemd` config file to automatically start my gitlab container at startup, and then set up the config and enable the service. Here is the content of the `container-gitlab.service` config file:
 
 ```toml
 # container-gitlab.service
@@ -267,7 +267,7 @@ WantedBy=default.target
 
 ## Security Side Notes
 
-You may wonder why I insisted to install GitLab in user mode. This is because in a production environment, if an attack on a GitLab vulnerability success you don't want the attacker to gain root access on the server.
+You may wonder why I insisted on installing GitLab in user mode. This is because in a production environment, if an attack on a GitLab vulnerability success you don't want the attacker to gain root access on the server.
 
 The attacker will first gain access inside the container. Then, if he manages to escape from the container to the host, he would have ***user*** access. Because GitLab is a software, you can run its container using a user with minimal privileges.
 
@@ -282,8 +282,8 @@ For example, you could:
 3. Redirect ports 22, 80 and 443 traffic from GitLab to the ports bound in the container using a rootful NGINX in a pod with you GitLab container
 4. Encrypt `gitlab`'s home directory
 
-That way, even if the attacker manages to perform two successive attacks, his privilege gain race would result in having only access to `gitlab`'s home directory and OS libs, bins and configs.
+That way, even if the attacker manages to perform two successive attacks, his privilege gain race would result in having only access to `gitlab`'s home directory and OS libraries, binaries and configs.
 
-This access management can also be done for every other software stored in you server, to protect datas of a service when another service has successfully been attacked.
+This access management can also be done for every other software stored in your server, to protect data of a service when another service has successfully been attacked.
 
 I did not do this on my PC because I did not need as much security measures as in a production environment, but maybe I will try it later, you never know !

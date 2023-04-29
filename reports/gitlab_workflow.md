@@ -70,7 +70,7 @@ In my project I will also close the Issues with the former, but in a team the `D
 
 #### Issue Templates
 
-First, to make sure labels are setup automatically I use [issue template](https://docs.gitlab.com/ee/user/project/description_templates.html#create-an-issue-template) as well as [quick actions](https://docs.gitlab.com/ee/user/project/quick_actions.html#gitlab-quick-actions).
+First, to make sure labels are set up automatically I use [issue template](https://docs.gitlab.com/ee/user/project/description_templates.html#create-an-issue-template) as well as [quick actions](https://docs.gitlab.com/ee/user/project/quick_actions.html#gitlab-quick-actions).
 
 However, issue template are not yet supported by GitLab, even it their team [is working on it](https://gitlab.com/gitlab-org/gitlab/-/issues/7749). So I must make the templates in my `DevOps Training` project.
 
