@@ -9,6 +9,9 @@ stages:
 markdown_lint:
   stage: test
   image: ruby:latest
+  rules:
+    - changes:
+      - *.md
   script:
     - gem install mdl
     - mdl $(find . -type f -name "*.md")
