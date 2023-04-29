@@ -38,9 +38,8 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
   - [X] Known words
   - [ ] Grammar
   - [X] Find Broken Links in .md files
-- [ ] Run the linter jobs, if and only, files of their according type have been modified.
-- [ ] Run the linter jobs only on the files that have been modified.
-- [ ] Add code coverage and formatter if possible. Coverage can come later with the application.
+- [X] Run the linter jobs, if and only, files of their according type have been modified.
+- [X] Run the linter jobs only on the files that have been modified.
 
 ### 3. Building an Application (Rust & Go)
 
@@ -49,6 +48,8 @@ Once in a while a sanitized tutorial will be written to summarize a step in [tut
 - [ ] Use GitLab CI/CD pipelines to run linting:
   - [ ] Rust
   - [ ] Go
+- [ ] Add tests coverage
+- [ ] Add code formatter if possible
 
 ### 4. Containerize the Application (Podman)
 
