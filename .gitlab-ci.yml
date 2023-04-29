@@ -13,7 +13,7 @@ markdown_lint:
   #  - if: '$CI_COMMIT_MODIFIED_FILES =~ /\.md$/'
   script:
     - npm install markdownlint
-    - mdl ~MD013 $(find . -type f -name "*.md")
+    - markdownlint $(find . -type f -name "*.md")
 
 markdown_link:
   stage: test
