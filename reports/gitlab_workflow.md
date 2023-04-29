@@ -76,7 +76,7 @@ First, to make sure labels are setup automatically I use [issue template](https:
 
 However, issue template are not yet supported by GitLab, even it their team [is working on it](https://gitlab.com/gitlab-org/gitlab/-/issues/7749). So I must make the templates in my `DevOps Training` project.
 
-To do so, I created [issue templates](../.gitlab/issue_templates) in [.gitlab/issue_templates](.gitlab/issue_templates) and [merge request templates](../.gitlab/merge_request_templates) in [.gitlab/merge_request_templates](.gitlab/merge_request_templates) in this repository.
+To do so, I created [issue templates](../.gitlab/issue_templates) in [.gitlab/issue_templates](../.gitlab/issue_templates) and [merge request templates](../.gitlab/merge_request_templates) in [.gitlab/merge_request_templates](../.gitlab/merge_request_templates) in this repository.
 
 It order to [set a template by default](https://docs.gitlab.com/ee/user/project/description_templates.html#set-a-default-template-for-merge-requests-and-issues), I tried using a symbolic link to `Default.md`:
 
@@ -112,4 +112,3 @@ TODO
 ### License Checker
 
 ### Security Flaw Checker
-
