@@ -1,0 +1,9 @@
+BLAS
+LAPACK
+metadatas
+pastable
+publickey
+pydantic
+shynamo
+statfs
+unlabel
