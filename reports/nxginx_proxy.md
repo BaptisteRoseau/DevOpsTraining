@@ -19,7 +19,7 @@ podman run --detach \
   gitlab/gitlab-ee:latest
 ```
 
-Well, I cannot click in my issue and merge request links on my [GitLab local server](setting_up_gitlab.md) because of non-standard ports redirection. This was also the cause of LFS issues so it is time to fix this by making the port redirection transparent.
+Well, I cannot click in my issue and merge request links on my [GitLab local server](setting_up_gitlab.md) because of non-standard ports redirection. This was also the cause of LFS issues, so it is time to fix this by making the port redirection transparent.
 
 ## NGINX Proxy For HTTP And HTTPS
 
@@ -84,7 +84,7 @@ baptiste:~$ sudo systemctl status container-nginx
        Docs: man:podman-generate-systemd(1)
 ```
 
-Finally, I need to [rename my GitLab's hostname](#rename-gitlab-hostname) into `shynamo-gitlab` to make those HTTP and HTTPs completely transparent.
+Finally, I need to [rename my GitLab's hostname](#rename-gitlab-hostname) into `shynamo-gitlab` to make those HTTP and HTTPS completely transparent.
 
 ## SSH Config
 
@@ -104,7 +104,7 @@ This uses port 2022 by default for the user `git` on `shynamo-gitlab` (resolved 
 
 ## Rename GitLab Hostname
 
-When running my GitLab container, I used the option ` --hostname localhost`. With the NGINX's server I need to use `shynamo-gitlab` instead.
+When running my GitLab container, I used the option `--hostname localhost`. With the NGINX's server I need to use `shynamo-gitlab` instead.
 
 If possible, I would like to use the same container instead of re-creating one from the image.
 
@@ -112,7 +112,7 @@ TODO: gitlab config URL
 
 ## Remove Trailing Slash
 
-GitLab job adds trailing `/` to the Git repository when trying tu pull it, which results in 404 error.
+GitLab job adds trailing `/` to the Git repository when trying to pull it, which results in 404 error.
 
 Fix this in NGINX config:
 

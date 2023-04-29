@@ -3,6 +3,7 @@ CEST
 cgroups
 cidfile
 conmon
+dpkg
 enablehrefrewrite
 filemode
 gitlab
@@ -21,3 +22,4 @@ shynamo
 Shynamo
 statfs
 unlabel
+rootful
