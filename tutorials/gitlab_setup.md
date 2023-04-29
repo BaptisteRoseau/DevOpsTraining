@@ -1,9 +1,9 @@
 # Setting Up A GitLab Server
 
-**Table of contents:
+Table of contents:
 
 [TOC]
-**
+
 ## Summary
 
 As an IT company you may need to setup your own [GitLab](https://about.gitlab.com/)'s instance.
@@ -40,6 +40,7 @@ With that setup, each software on your server is isolated, and if an attacker ma
 WIP
 
 TODO: Create user and group to restrict permissions
+
 - Group `software`
 - Home directory `/home/gitlab`
 - User `gitlab` with group `software` and home `/home/gitlab` and a password
@@ -50,9 +51,11 @@ DONE in ubuntu container
 
 As root:
 
-    groupadd software
-    mkdir /home/software
-    useradd -m gitlab
+```cmd
+groupadd software
+mkdir /home/software
+useradd -m gitlab
+```
 
 TODO: specify GID and remove recursively access to other users from the group
 
@@ -152,7 +155,7 @@ To configure SSL/TLS in a GitLab container, you can follow these steps:
 
 3. Update the `gitlab.rb` configuration file, which is located in the `/etc/gitlab` directory, to include the following lines:
 
-```
+```cmd
 external_url 'https://your-domain.com'
 nginx['ssl_certificate'] = "/etc/gitlab/ssl/your-domain.com.crt"
 nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/your-domain.com.key"
@@ -216,7 +219,7 @@ Note that port 22 remapping will be fixed using [SSH client configs](#ssh-client
 
 ### Reverse Proxy Setup
 
-NGINX container will run a root, so you can store its config anywhere unsensitive. 
+NGINX container will run a root, so you can store its config anywhere unsensitive.
 
 For this tutorial, we will store it in `/root/nginx/nginx.conf`:
 
