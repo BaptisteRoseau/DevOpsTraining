@@ -9,5 +9,6 @@ stages:
 sast:
   stage: test
   script:
+    - apt-get install ruby-dev
     - gem install mdl
-    - mdl README.md reports/** tutorials/**
+    - mdl $(find . -type f -name "*.md")
