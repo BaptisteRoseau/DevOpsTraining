@@ -17,7 +17,7 @@ I installed GitLab using the `podman` CLI:
 
 ```bash
 podman run --detach \
-  --hostname localhost \
+  --hostname shynamo-gitlab \
   --publish 443:443 --publish 80:80 --publish 22:22 \
   --name gitlab \
   --restart always \
@@ -47,7 +47,7 @@ I remapped the ports forwarding by prefixing with 20:
 
 ```bash
 podman run --detach \
-  --hostname localhost \
+  --hostname shynamo-gitlab \
   --publish 20443:443 --publish 2080:80 --publish 2022:22 \
   --name gitlab \
   --restart always \

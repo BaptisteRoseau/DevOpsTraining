@@ -109,3 +109,40 @@ When running my GitLab container, I used the option ` --hostname localhost`. Wit
 If possible, I would like to use the same container instead of re-creating one from the image.
 
 TODO: gitlab config URL
+
+## Remove Trailing Slash
+
+GitLab job adds trailing `/` to the Git repository when trying tu pull it, which results in 404 error.
+
+Fix this in NGINX config:
+
+```nginx
+events {
+  worker_connections  4096;
+}
+
+http {
+ server {
+   listen localhost:80;
+   listen [::1]:80 ipv6only=on;
+
+   server_name shynamo-gitlab;
+
+   location ~ (?<no_slash>.*)/$ {
+       proxy_pass http://localhost:2080$no_slash;
+       proxy_set_header Host $host;
+   }
+ }
+ server {
+   listen localhost:443;
+   listen [::1]:443 ipv6only=on;
+
+   server_name shynamo-gitlab;
+
+   location ~ (?<no_slash>.*)/$ {
+       proxy_pass http://localhost:20443$no_slash;
+       proxy_set_header Host $host;
+   }
+ }
+}
+```

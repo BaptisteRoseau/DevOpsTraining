@@ -121,7 +121,14 @@ Then, run the container:
 ```bash
 podman run --detach \
   --hostname my.company.gitlab.server \
-  --publish 20443:443 --publish 2022:22 \
+  --publish 20443:443 \
+  --publish 2080:80 \
+  --publish 2022:22 \
+  --publish 9418:9418 \
+  --publish 9090:9090 \
+  --publish 5000:5000 \
+  --publish 20465:465 \
+  --publish 9418:9418 \
   --name gitlab \
   --restart always \
   --volume $GITLAB_HOME/config:/etc/gitlab:Z \
@@ -130,6 +137,8 @@ podman run --detach \
   --shm-size 256m \
   gitlab/gitlab-ee:latest
 ```
+
+More information about GitLab used ports [here](https://docs.gitlab.cn/14.0/omnibus/package-information/defaults.html#ports).
 
 ================================
 
@@ -169,7 +178,6 @@ mkdir -p ~/.config/systemd/user/
 mv container-gitlab.service ~/.config/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable container-gitlab.service
-rm container-gitlab.service
 ```
 
 These commands will:
