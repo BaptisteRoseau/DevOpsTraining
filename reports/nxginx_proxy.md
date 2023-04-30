@@ -19,7 +19,7 @@ podman run --detach \
   gitlab/gitlab-ee:latest
 ```
 
-Well, I cannot click in my issue and merge request links on my [GitLab local server](setting_up_gitlab.md) because of non-standard ports redirection. This was also the cause of LFS issues, so it is time to fix this by making the port redirection transparent.
+Well, I cannot click in my issue and merge request links on my [GitLab local server](01-setting_up_gitlab.md) because of non-standard ports redirection. This was also the cause of LFS issues, so it is time to fix this by making the port redirection transparent.
 
 ## NGINX Proxy For HTTP And HTTPS
 
