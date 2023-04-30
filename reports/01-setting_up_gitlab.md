@@ -6,6 +6,8 @@ I chose [Podman](https://podman.io/): a rootless container technology. Fortunate
 
 Because I want to enforce rootless set up, I followed GitLab's documentation and created a directory used for persistent GitLab files.
 
+Why did I choose GitLab over GitHub to work ? Because it is widely used in IT companies having private instances, and I prefer its workflow regarding DevOps and project management. Also, I am more used to its GUI than GitHub and wanted to try to set up my own instance.
+
 ## Install GitLab
 
 ```cmd
@@ -17,7 +19,7 @@ I installed GitLab using the `podman` CLI:
 
 ```bash
 podman run --detach \
-    --hostname shynamo-gitlab \
+    --hostname localhost \
     --publish 443:443 --publish 80:80 --publish 22:22 \
     --name gitlab \
     --restart always \
@@ -47,7 +49,7 @@ I remapped the ports forwarding by prefixing with 20:
 
 ```bash
 podman run --detach \
-    --hostname shynamo-gitlab \
+    --hostname localhost \
     --publish 20443:443 --publish 2080:80 --publish 2022:22 \
     --name gitlab \
     --restart always \
@@ -81,7 +83,7 @@ Then, I could play with GitLab admin panel. First I deactivated sign-ups, then c
 
 After spending some time exploring GitLab's administrator options and possibilities, I tried to log in as Shynamo. An email should have been sent to set up my password, but it was not !
 
-At first, I tried to set up SMTP, but this was not mandatory so I instead used [this documentation](https://docs.gitlab.com/ee/user/profile/account/create_accounts.html#create-users-in-admin-area) to enforce a default password.
+At first, I tried to set up SMTP, but this was not mandatory, so I instead used [this documentation](https://docs.gitlab.com/ee/user/profile/account/create_accounts.html#create-users-in-admin-area) to enforce a default password.
 
 ![gitlab_password](assets/gitlab_password.png#center)
 
@@ -89,11 +91,22 @@ Then, tried to initialize my repository by mirroring the one already create on [
 
 ![gitlab_password](assets/gitlab_password.png#center)
 
-I just needed to retrieve my SSH key using `cat ~/.ssh/id_rsa.pub` then [upload it to GitLab](https://docs.gitlab.com/ee/user/ssh.html) and I was ready to go.
+### GitLab User SSH Key Setup
+
+To authenticate with my Shynamo user, I just needed to retrieve my SSH key using `cat ~/.ssh/id_rsa.pub` then [upload it to GitLab](https://docs.gitlab.com/ee/user/ssh.html), and I was ready to go.
+
+I needed to update my `~/.ssh/config` to interact with my local GitLab:
+
+```cmd
+# GitLab.com
+Host localhost
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa.pub
+```
+
+Next I did set up my SSH key on my local GitLab account to ease repositories usage. I want to clone the repositories using SSH instead of HTTP because this is more secure, and I will not have to type any password when interacting with remote repositories.
 
 ### Mirror to GitHub
-
-Why did I choose GitLab over GitHub to work ? Because it is widely used in IT companies with private instances, and I prefer its workflow regarding DevOps and project management. Also, I am more used to its GUI than GitHub and wanted to try to set up my own instance.
 
 GitLab provides a GUI to mirror repositories, however things are not as easy as they seem to mirror to GitHub.
 
@@ -115,7 +128,7 @@ ssh://git:username@github.com/username/repository.git
 
 #### SSH Public key
 
-To allow my local GitLab server to push to my GitHub repository, I need to add its SSH key to my GitHub account because they key used to mirror repositories is the one of GitLab, not yours. Of course, you should not send you private key !
+To allow my local GitLab server to push to my GitHub repository, I need to add my project's SSH key to my GitHub account. GitLab generates an SSH key per project. The key used to mirror repositories is the one of GitLab, not yours. This makes sense, a private is used to encrypt, and you should never send you private key !
 
 Once I [found my server's SSH Key](https://docs.gitlab.com/ee/user/project/repository/mirror/#get-your-ssh-public-key) then [added it to GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account#adding-a-new-ssh-key-to-your-account), I could successfully mirror my local repository !
 
@@ -123,16 +136,13 @@ Once I [found my server's SSH Key](https://docs.gitlab.com/ee/user/project/repos
 
 Now I can fully work on my local GitLab instance and my public GitHub account will be up-to-date without any action required.
 
-I needed to update my `~/.ssh/config` to interact with my local GitLab:
+#### Git LFS Troubles
 
-```cmd
-# GitLab.com
-Host localhost
-PreferredAuthentications publickey
-IdentityFile ~/.ssh/id_rsa.pub
-```
+When pushing LFS objects to the GitHub mirror, only the reference is pushed and not the object itself.
 
-Next I did set up my SSH key on my local GitLab account to ease repositories usage. I want to clone the repositories using SSH instead of HTTP because this is more secure, and I will not have to type any password when interacting with remote repositories.
+Because the reference is to my local GitLab instance, GitHub cannot pull it and hence reports have no images.
+
+This has not been fixed yet, but it may have to deal with the usage of SSH protocol instead of HTTP/HTTPS.
 
 ### Git LFS troubleshooting
 
@@ -161,9 +171,9 @@ Uploading LFS objects:   0% (0/4), 0 B | 0 B/s, done.
 error: failed to push some refs to 'ssh://localhost:2022/Shynamo/DevOpsTraining.git'
 ```
 
-This is because the address provided by the container expect port 80 to be used by default, so the port is not specified in the URL. But Git LFS resolve URLs on the host, so the port specification is missing and Git LFS tries to push references on `127.0.0.1:80` instead of `127.0.0.1:2080`.
+This is because the address provided by the container expect port 80 to be used by default, so the port is not specified in the URL. But Git LFS resolve URLs on the host, so the port specification is missing in the URL and Git LFS tries to push references on `127.0.0.1:80` instead of `127.0.0.1:2080`.
 
-I did not find a way to fix this inside of the container to that the user won't have anything to change in their configuration. This would be mandatory in production, but for the moment I just need my Git LFS to work. I needed to use these two commands:
+I did not find a way to fix this inside of the container so that the user won't have anything to change in their configuration. This would be mandatory in production, but for the moment I just need my Git LFS to work. I needed to use these two commands:
 
 ```cmd
 git config lfs.transfer.enablehrefrewrite true
@@ -276,7 +286,7 @@ For example, you could:
 1. Create a `gitLab` user
 1. Only give that user minimum privileges:
     - Create a group `softwares`
-    - Add gitlab to that group
+    - Add `gitlab` to that group
     - Give basically no access whatsoever to users or the `software` group
     - Give `gitlab` user RW access only in its home directory, where the data is located
 1. Redirect ports 22, 80 and 443 traffic from GitLab to the ports bound in the container using a rootful NGINX in a pod with you GitLab container
