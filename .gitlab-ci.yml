@@ -6,6 +6,18 @@ stages:
 - test
 - deploy
 
+include:
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
+
+variables:
+  PYTHONPATH: "$CI_PROJECT_DIR/src"
+  SECRET_DETECTION_EXCLUDED_PATHS: "tst"
+
 markdown_lint:
   stage: test
   image: node:latest
@@ -29,3 +41,35 @@ spelling:
   script:
     - npm install -g cspell@latest
     - cspell --color --locale "en,fr" --config .ci/cpsell/config.json README.md tutorials/** reports/**
+
+unit-test-job:
+  image: python:latest
+  stage: test
+  script:
+    - echo "Running unit tests..."
+    - python3 -m pip install pytest
+    - python3 -m pip install -r requirements.txt
+    - python3 -m pytest tst --junitxml=unit_test_results.xml
+  artifacts:
+    reports:
+      junit: unit_test_results.xml
+    when: always
+    expire_in: 1 days
+
+lint-test-job:
+  image: python:latest
+  stage: test
+  script:
+    - echo "Runing pylint tests"
+    - python3 -m pip install pylint mypy
+    - python3 -m pylint src/**
+    - echo "Runing mypy tests"
+    - for file in $(find src -type f -name "*.py"); do python3 -m mypy $file; done
+
+bandit-test-job:
+  image: python:latest
+  stage: test
+  script:
+    - python3 -m pip install --upgrade pip
+    - python3 -m pip install --upgrade setuptools
+    - python3 -m pip install bandit
