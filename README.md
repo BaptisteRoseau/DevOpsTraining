@@ -122,3 +122,9 @@ and disk usage.
 - Prometheus: <https://prometheus.io/docs/introduction/overview/>
 - Grafana: <https://grafana.com/docs/grafana/latest/getting-started/>
 - Kubernetes: <https://kubernetes.io/docs/setup/>
+
+## References
+
+### Books
+
+- *Automating DevOps with GitLab CI/CD Pipelines* written by Christopher Cowell, Nicholas Lotz and Chris Timberlake.
