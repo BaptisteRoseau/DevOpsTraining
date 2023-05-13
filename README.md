@@ -34,6 +34,8 @@ in [tutorials](tutorials).
 
 ### 2. Setting Up DevOps Foundations (CI/CD)
 
+<!-- TODO: Links to the reports everywhere it is possible -->
+
 - [ ] Setup GitLab Runners:
     - [X] On the host (rootless Podman).
     - [ ] Within VMs (VirtualBox).
@@ -112,7 +114,9 @@ and disk usage.
 - [ ] Encrypt all the containers, the encryption key must be different for each of them.
 - [ ] Encrypt the logging container disk.
 
-## Documentations
+## References
+
+### Documentations
 
 - Rust: <https://doc.rust-lang.org/stable/book/>
 - Go: <https://go.dev/doc/tutorial/getting-started>
@@ -123,7 +127,9 @@ and disk usage.
 - Grafana: <https://grafana.com/docs/grafana/latest/getting-started/>
 - Kubernetes: <https://kubernetes.io/docs/setup/>
 
-## References
+## Usefull Links
+
+- CNCF Landscape: <https://landscape.cncf.io/> To know which solutions are most used and hence useful to learn.
 
 ### Books
 
