@@ -100,3 +100,5 @@ update_issue_labels:
       "$CI_PROJECT_URL/api/v4/projects/$CI_PROJECT_ID/issues/$CI_MERGE_REQUEST_IID"
   only:
     - merge_requests
+
+# TODO: Add valgrind verifyer (memory leaks & profiling (only when benchmark is set to true))
