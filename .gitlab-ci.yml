@@ -24,7 +24,7 @@ markdown_lint:
   rules:
     - changes:
       - "*.md"
-      - "**/.md"
+      - "**/*.md"
   script:
     - npm install -g markdownlint-cli
     - markdownlint -c .markdownlint.json $(find . -type f -name "*.md")
@@ -35,7 +35,7 @@ markdown_link:
   rules:
     - changes:
       - "*.md"
-      - "**/.md"
+      - "**/*.md"
   script:
     - npm install -g markdown-link-check
     - echo '{}' > /tmp/config.json
@@ -52,6 +52,10 @@ spelling:
 unit-test-job:
   image: python:latest
   stage: test
+  rules:
+    - exists:
+      - "*.py"
+      - "**/*.py"
   script:
     - echo "Running unit tests..."
     - python3 -m pip install pytest
@@ -70,7 +74,7 @@ lint-test-job:
   rules:
     - changes:
       - "*.py"
-      - "**/.py"
+      - "**/*.py"
   script:
     - echo "Runing pylint tests"
     - python3 -m pip install pylint mypy
@@ -85,7 +89,7 @@ bandit-test-job:
   rules:
     - changes:
       - "*.py"
-      - "**/.py"
+      - "**/*.py"
   script:
     - python3 -m pip install --upgrade pip
     - python3 -m pip install --upgrade setuptools
