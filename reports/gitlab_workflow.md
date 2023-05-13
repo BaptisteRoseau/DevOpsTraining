@@ -99,10 +99,34 @@ Unfortunately, the `/unlabel ~Draft ~TODO ~DOING ~DONE` in the merge request tem
 
 #### Label Update On Merge Requests
 
-TODO
+According to ChatGPT, it would be possible doing it using GitLab's API with the following CI/CD pipeline:
+
+```yaml
+update_issue_labels:
+  script:
+    - >
+      curl --request PUT
+      --header "PRIVATE-TOKEN: $CI_JOB_TOKEN"
+      --data "labels=your-labels"
+      "$CI_PROJECT_URL/api/v4/projects/$CI_PROJECT_ID/issues/$CI_MERGE_REQUEST_IID"
+  only:
+    - merge_requests
+```
 
 ## CI/CD Pipelines
 
-### License Checker
+Fortunately, GitLab provides a few [templates](https://gitlab.com/gitlab-org/gitlab/-/tree/master/lib/gitlab/ci/templates) per programming language, and also a lot of security analyzers.
 
-### Security Flaw Checker
+```YAML
+include:
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml # Available in GitLab Ultimate
+  - template: Security/License-Scanning.gitlab-ci.yml # Available in GitLab Ultimate
+```
+
+They can also be manually set up using the *Security and Compliance -> Security configuration* panel.
+
+I discovered those pipelines in the well written book *Automating DevOps with GitLab CI/CD Pipelines* written by Christopher Cowell, Nicholas Lotz and Chris Timberlake.
