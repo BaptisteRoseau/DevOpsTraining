@@ -10,9 +10,9 @@ include:
   - template: Code-Quality.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
-  - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml # Ultimate
+  - template: Security/License-Scanning.gitlab-ci.yml # Ultimate
 
 variables:
   PYTHONPATH: "$CI_PROJECT_DIR/src"
@@ -21,8 +21,10 @@ variables:
 markdown_lint:
   stage: test
   image: node:latest
-  #rules:
-  #  - if: '$CI_COMMIT_MODIFIED_FILES =~ /\.md$/'
+  rules:
+    - changes:
+      - "*.md"
+      - "**/.md"
   script:
     - npm install -g markdownlint-cli
     - markdownlint -c .markdownlint.json $(find . -type f -name "*.md")
@@ -30,6 +32,10 @@ markdown_lint:
 markdown_link:
   stage: test
   image: node:latest
+  rules:
+    - changes:
+      - "*.md"
+      - "**/.md"
   script:
     - npm install -g markdown-link-check
     - echo '{}' > /tmp/config.json
@@ -59,6 +65,10 @@ unit-test-job:
 lint-test-job:
   image: python:latest
   stage: test
+  rules:
+    - changes:
+      - "*.py"
+      - "**/.py"
   script:
     - echo "Runing pylint tests"
     - python3 -m pip install pylint mypy
@@ -69,15 +79,21 @@ lint-test-job:
 bandit-test-job:
   image: python:latest
   stage: test
+  rules:
+    - changes:
+      - "*.py"
+      - "**/.py"
   script:
     - python3 -m pip install --upgrade pip
     - python3 -m pip install --upgrade setuptools
     - python3 -m pip install bandit
 
 update_issue_labels:
-  image: alpine:latest
   script:
-    - apk --no-cache add curl
-    - curl --request PUT --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" --data "labels=DONE" "$CI_PROJECT_URL/api/v4/projects/$CI_PROJECT_ID/issues/$CI_MERGE_REQUEST_IID"
+    - >
+      curl --request PUT
+      --header "PRIVATE-TOKEN: $CI_JOB_TOKEN"
+      --data "labels=DONE"
+      "$CI_PROJECT_URL/api/v4/projects/$CI_PROJECT_ID/issues/$CI_MERGE_REQUEST_IID"
   only:
     - merge_requests
