@@ -120,6 +120,7 @@ secret_detection:
     
 secret_convert:
   stage: convert
+  image: python:latest
   dependencies:
     - secret_detection
   script:
@@ -150,6 +151,7 @@ brakeman-sast:
 
 semgrep-sast-convert:
   stage: convert
+  image: python:latest
   dependencies:
     - semgrep-sast
   script:
@@ -161,6 +163,7 @@ semgrep-sast-convert:
       
 brakeman-sast-convert:
   stage: convert
+  image: python:latest
   dependencies:
     - brakeman-sast
   script:
@@ -180,6 +183,7 @@ container_scanning:
 
 container_scanning-convert:
   stage: convert
+  image: python:latest
   dependencies:
     - container_scanning
   script:
