@@ -1,5 +1,7 @@
 # Setting Up A GitLab Server
 
+__WARNING: WORK IN PROGRESS !__
+
 Table of contents:
 
 [TOC]
