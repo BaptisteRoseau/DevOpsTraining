@@ -41,17 +41,32 @@ sudo gitlab-runner start
 
 ### Register A Runner
 
-TODO
+```cmd
+gitlab-runner register \
+  --name your-runner-name \
+  --url https://shynamo-gitlab.com/ \
+  --docker-image ubuntu:latest \
+  --non-interactive \
+  --executor docker \
+  --registration-token ${REGISTRATION_TOKEN}
+```
 
 ### Rootless Podman Configuration
 
 To be able to use my rootless Podman configuration, there are a few things to configure.
 
-There is a great blog written by Jean-Christophe Vassort on this specific topic here: <https://jcvassort.open-web.fr/gitlab-runner-replace-docker-with-podman/>. However he uses 
+There is a great blog written by Jean-Christophe Vassort on this specific topic here: <https://jcvassort.open-web.fr/gitlab-runner-replace-docker-with-podman/>. However, he uses a container for GitLab Runner and a dedicated podman user which is not our use case here (yet).
 
 #### Enable The Podman Daemon
 
-TODO
+First, you need to set up the rootless Podman daemon for your user.
+
+```cmd
+systemctl enable podman.service
+systemctl start podman.service
+```
+
+This will create a socket in `/run/user/$(id -u)/podman/podman.sock` that will be used by the runner.
 
 #### Update The Runner Configuration
 
@@ -87,9 +102,3 @@ And you are ready to go ! This runner will use your user's container registry to
 ## Install GitLab Runner In A Rootless Container
 
 TODO
-
---network = host in the config
-
-- Explain the Issue
-
-Try to put an IP in /etc/host and use it instead of 127.0.0.1.
