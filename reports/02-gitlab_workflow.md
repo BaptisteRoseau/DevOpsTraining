@@ -95,14 +95,83 @@ So, instead of a symbolic link I simply rename `template.md` into `Default.md`, 
 
 Unfortunately, the `/unlabel ~Draft ~TODO ~DOING ~DONE` in the merge request template does not work as it seems like issue metadatas are copied after the description's quick actions.
 
-*A **very annoying** problem is that I **cannot click** on an issue or a merge request because of the port redirection. So, I decided to fix this issue right now [using an NGINX a proxy](nxginx_proxy.md).*
+*A **very annoying** problem is that I **cannot click** on an issue or a merge request because of the port redirection. So, I decided to fix this issue right now [using an NGINX a proxy](03-nxginx_proxy.md).*
 
 #### Label Update On Merge Requests
 
-TODO
+According to ChatGPT, it would be possible doing it using GitLab's API with the following CI/CD pipeline:
+
+```yaml
+update_issue_labels:
+  script:
+    - >
+      curl --request PUT
+      --header "PRIVATE-TOKEN: $CI_JOB_TOKEN"
+      --data "labels=your-labels"
+      "$CI_PROJECT_URL/api/v4/projects/$CI_PROJECT_ID/issues/$CI_MERGE_REQUEST_IID"
+  only:
+    - merge_requests
+```
+
+Unfortunately to leads to a right error that may be solved using a different token.
+
+### Merge Request Commit Format
+
+I do not want all the commits of an MR to be shown in the main branch. Additionally, I want to see quickly which Issue or Merge Request is related to a commit, directly in the commit message, such as:
+
+```text
+Add GitLab Setup Tutorial (#3 !4)
+```
+
+To do so, go to *Settings* -> *Merge requests*.
+
+Here you can:
+
+- Require to squash commit to have only 1 commit per merge request in the main branch
+- Require pipelines to succeed and all threads to be resolved
+- Update the commit templates
+
+![Merge Request Options](assets/merge_request_options.png)
+
+#### *Merge commit message template*
+
+```text
+Merge branch '%{source_branch}' into '%{target_branch}'
+
+%{title}
+
+Closes %{issues}
+
+See merge request %{reference}
+```
+
+#### *Squash commit message template*
+
+This will add the Issue and Merge Request links in the commit message, and all the commits as details:
+
+```text
+%{title} (%{reference} %{issues})
+
+
+Commits:
+%{all_commits}
+```
 
 ## CI/CD Pipelines
 
-### License Checker
+Fortunately, GitLab provides a few [templates](https://gitlab.com/gitlab-org/gitlab/-/tree/master/lib/gitlab/ci/templates) per programming language, and also a lot of security analyzers.
 
-### Security Flaw Checker
+```YAML
+include:
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml # Available in GitLab Ultimate
+  - template: Security/License-Scanning.gitlab-ci.yml # Available in GitLab Ultimate
+  - template: Security/DAST.gitlab-ci.yml # Available in GitLab Ultimate
+```
+
+They can also be manually set up using the *Security and Compliance -> Security configuration* panel.
+
+I discovered those pipelines in the well written book *Automating DevOps with GitLab CI/CD Pipelines* written by Christopher Cowell, Nicholas Lotz and Chris Timberlake.

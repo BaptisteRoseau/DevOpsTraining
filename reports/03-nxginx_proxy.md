@@ -19,7 +19,9 @@ podman run --detach \
   gitlab/gitlab-ee:latest
 ```
 
-Well, I cannot click in my issue and merge request links on my [GitLab local server](01-setting_up_gitlab.md) because of non-standard ports redirection. This was also the cause of LFS issues, so it is time to fix this by making the port redirection transparent.
+Well, because of the rootless port redirection, I cannot click in my issue and merge request links on my [GitLab local server](01-setting_up_gitlab.md) which is very annoying.
+
+This was also the cause of LFS issues, so it is time to fix this by making the port redirection transparent.
 
 ## NGINX Proxy For HTTP And HTTPS
 
@@ -32,24 +34,24 @@ events {
 
 http {
  server {
-   listen 127.0.0.1:80;
+   listen localhost:80;
    listen [::1]:80 ipv6only=on;
 
    server_name shynamo-gitlab;
 
    location / {
-       proxy_pass http://127.0.0.1:2080;
+       proxy_pass http://localhost:2080;
        proxy_set_header Host $host;
    }
  }
  server {
-   listen 127.0.0.1:443;
+   listen localhost:443;
    listen [::1]:443 ipv6only=on;
 
    server_name shynamo-gitlab;
 
    location / {
-       proxy_pass http://127.0.0.1:20443;
+       proxy_pass http://localhost:20443;
        proxy_set_header Host $host;
    }
  }
@@ -71,13 +73,13 @@ $ sudo podman run \
 Then, I made the container restart at startup:
 
 ```cmd
-baptiste:~$ sudo podman generate systemd --new --name nginx -f
+$ sudo podman generate systemd --new --name nginx -f
 /home/baptiste/container-nginx.service
-baptiste:~$ sudo cp container-nginx.service /etc/systemd/system/
-baptiste:~$ sudo systemctl daemon-reload
-baptiste:~$ sudo systemctl enable container-nginx
+$ sudo cp container-nginx.service /etc/systemd/system/
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable container-nginx
 Created symlink /etc/systemd/system/default.target.wants/container-nginx.service → /etc/systemd/system/container-nginx.service.
-baptiste:~$ sudo systemctl status container-nginx
+$ sudo systemctl status container-nginx
 ○ container-nginx.service - Podman container-nginx.service
      Loaded: loaded (/etc/systemd/system/container-nginx.service; enabled; vendor preset: enabled)
      Active: inactive (dead)
@@ -104,45 +106,22 @@ This uses port 2022 by default for the user `git` on `shynamo-gitlab` (resolved 
 
 ## Rename GitLab Hostname
 
+### Change the Container Hostname
+
 When running my GitLab container, I used the option `--hostname localhost`. With the NGINX's server I need to use `shynamo-gitlab` instead.
 
 If possible, I would like to use the same container instead of re-creating one from the image.
 
-TODO: gitlab config URL
+I did not find a way to do it, however all the persistent data of the GitLab container is stored within `config`, `data` and `logs` bound directories. This enables you to simply run a new container with different options as you like.
 
-## Remove Trailing Slash
+So I simply re-ran the commands from [this tutorial](../reports/01-setting_up_gitlab.md#install-gitlab), which changed the GitLab's container hostname.
 
-GitLab job adds trailing `/` to the Git repository when trying to pull it, which results in 404 error.
+### Change the GitLab Hostname
 
-Fix this in NGINX config:
+Additionally, and this is actually what solved the problem, I modified the `$GITLAB_HOME/config/gitlab.rb` file to add:
 
-```nginx
-events {
-  worker_connections  4096;
-}
-
-http {
- server {
-   listen localhost:80;
-   listen [::1]:80 ipv6only=on;
-
-   server_name shynamo-gitlab;
-
-   location ~ (?<no_slash>.*)/$ {
-       proxy_pass http://localhost:2080$no_slash;
-       proxy_set_header Host $host;
-   }
- }
- server {
-   listen localhost:443;
-   listen [::1]:443 ipv6only=on;
-
-   server_name shynamo-gitlab;
-
-   location ~ (?<no_slash>.*)/$ {
-       proxy_pass http://localhost:20443$no_slash;
-       proxy_set_header Host $host;
-   }
- }
-}
+```ruby
+external_url "http://shynamo-gitlab"
 ```
+
+Be careful not to add a trailing slash `/` as it is added by GitLab by default and can break your NGINX redirection.
