@@ -95,7 +95,7 @@ So, instead of a symbolic link I simply rename `template.md` into `Default.md`, 
 
 Unfortunately, the `/unlabel ~Draft ~TODO ~DOING ~DONE` in the merge request template does not work as it seems like issue metadatas are copied after the description's quick actions.
 
-*A **very annoying** problem is that I **cannot click** on an issue or a merge request because of the port redirection. So, I decided to fix this issue right now [using an NGINX a proxy](nxginx_proxy.md).*
+*A **very annoying** problem is that I **cannot click** on an issue or a merge request because of the port redirection. So, I decided to fix this issue right now [using an NGINX a proxy](03-nxginx_proxy.md).*
 
 #### Label Update On Merge Requests
 
