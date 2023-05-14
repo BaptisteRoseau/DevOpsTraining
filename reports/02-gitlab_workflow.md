@@ -115,6 +115,48 @@ update_issue_labels:
 
 Unfortunately to leads to a right error that may be solved using a different token.
 
+### Merge Request Commit Format
+
+I do not want all the commits of an MR to be shown in the main branch. Additionally, I want to see quickly which Issue or Merge Request is related to a commit, directly in the commit message, such as:
+
+```text
+Add GitLab Setup Tutorial (#3 !4)
+```
+
+To do so, go to *Settings* -> *Merge requests*.
+
+Here you can:
+
+- Require to squash commit to have only 1 commit per merge request in the main branch
+- Require pipelines to succeed and all threads to be resolved
+- Update the commit templates
+
+![Merge Request Options](assets/merge_request_options.png)
+
+#### *Merge commit message template*
+
+```text
+Merge branch '%{source_branch}' into '%{target_branch}'
+
+%{title}
+
+Closes %{issues}
+
+See merge request %{reference}
+```
+
+#### *Squash commit message template*
+
+This will add the Issue and Merge Request links in the commit message, and all the commits as details:
+
+```text
+%{title} (%{reference} %{issues})
+
+
+Commits:
+%{all_commits}
+```
+
 ## CI/CD Pipelines
 
 Fortunately, GitLab provides a few [templates](https://gitlab.com/gitlab-org/gitlab/-/tree/master/lib/gitlab/ci/templates) per programming language, and also a lot of security analyzers.
