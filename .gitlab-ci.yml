@@ -97,7 +97,9 @@ bandit-test-job:
     - python3 -m pip install bandit
 
 update_issue_labels:
+  image: alpine:latest
   script:
+    - apk --no-cache add curl
     - >
       curl --request PUT
       --header "PRIVATE-TOKEN: $CI_JOB_TOKEN"
