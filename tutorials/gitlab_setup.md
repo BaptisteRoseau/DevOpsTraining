@@ -245,7 +245,7 @@ http {
 }
 ```
 
-Then, run the following command **as root** to run the container:
+Then, run the following command __as root__ to run the container:
 
 ```bash
 podman run \
@@ -261,7 +261,7 @@ podman run \
 
 [Same as GitLab](#automatically-restart-gitlab-on-reboot), we will use `systemd` but this time rootful.
 
-Run the following command **as root** on your server:
+Run the following command __as root__ on your server:
 
 ```cmd
 podman generate systemd --new --name nginx -f
@@ -270,7 +270,7 @@ systemctl daemon-reload
 systemctl enable container-nginx
 ```
 
-To verify the service has correctly been set up, use **as root**:
+To verify the service has correctly been set up, use __as root__:
 
 ```cmd
 $ systemctl status container-nginx
