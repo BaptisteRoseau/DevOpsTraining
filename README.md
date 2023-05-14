@@ -9,6 +9,8 @@ Data Engineering, HPC and Artificial Intelligence.
 I want to extend it to DevOps tools because these are crucial in an IT organization,
 and kinda awesome. And I also want to learn Rust and Go.
 
+Be aware that the tasks listed here may be modified as I advance in the project.
+
 ## Reports
 
 Here are the exercises I plan to do in order to train myself.
@@ -50,9 +52,10 @@ in [tutorials](tutorials).
 
 ### 3. Building an Application (Rust & Go)
 
-- [ ] Create a library of random matrix multiplication in Rust
-using [BLAS](https://www.openblas.net/) and or
+- [ ] Create a library in Rust that involves matrix multiplication (TBD)
+- Use [BLAS](https://www.openblas.net/) and or
 [LAPACK](https://github.com/Reference-LAPACK/lapack).
+- [ ] Try to import C or C++ libraries in Rust to see how it is done.
 - [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the
 previous library.
 - [ ] Use GitLab CI/CD pipelines to run linting:
@@ -60,6 +63,7 @@ previous library.
     - [ ] Go
 - [ ] Add tests coverage
 - [ ] Add code formatter if possible
+- [ ] Make a RESTful API to interact with the application
 
 ### 4. Containerize the Application (Podman)
 
