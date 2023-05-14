@@ -32,24 +32,24 @@ events {
 
 http {
  server {
-   listen 127.0.0.1:80;
+   listen localhost:80;
    listen [::1]:80 ipv6only=on;
 
    server_name shynamo-gitlab;
 
    location / {
-       proxy_pass http://127.0.0.1:2080;
+       proxy_pass http://localhost:2080;
        proxy_set_header Host $host;
    }
  }
  server {
-   listen 127.0.0.1:443;
+   listen localhost:443;
    listen [::1]:443 ipv6only=on;
 
    server_name shynamo-gitlab;
 
    location / {
-       proxy_pass http://127.0.0.1:20443;
+       proxy_pass http://localhost:20443;
        proxy_set_header Host $host;
    }
  }
