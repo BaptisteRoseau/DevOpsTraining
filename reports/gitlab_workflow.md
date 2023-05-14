@@ -113,6 +113,8 @@ update_issue_labels:
     - merge_requests
 ```
 
+Unfortunately to leads to a right error that may be solved using a different token.
+
 ## CI/CD Pipelines
 
 Fortunately, GitLab provides a few [templates](https://gitlab.com/gitlab-org/gitlab/-/tree/master/lib/gitlab/ci/templates) per programming language, and also a lot of security analyzers.
@@ -125,6 +127,7 @@ include:
   - template: Security/Container-Scanning.gitlab-ci.yml
   - template: Security/Dependency-Scanning.gitlab-ci.yml # Available in GitLab Ultimate
   - template: Security/License-Scanning.gitlab-ci.yml # Available in GitLab Ultimate
+  - template: Security/DAST.gitlab-ci.yml # Available in GitLab Ultimate
 ```
 
 They can also be manually set up using the *Security and Compliance -> Security configuration* panel.
