@@ -1,3 +1,3 @@
 # Reports
 
-1. [Setting Up a local GitLab Server](gitlab_setup.md)
+1. [Setting Up a local GitLab Server](01-gitlab_setup.md)

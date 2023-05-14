@@ -29,7 +29,7 @@ sudo dpkg -i gitlab-runner_${arch}.deb
 sudo gitlab-runner start
 ```
 
-This will install GitLab Runner as root and make it run as a service .
+This will install GitLab Runner as root and make it run as a service.
 
 Additionally, you can install GitLab Runner as root but make it run scripts as a user using the [following commands](https://docs.gitlab.com/runner/install/linux-manually.html#install-1):
 
