@@ -9,6 +9,8 @@ Data Engineering, HPC and Artificial Intelligence.
 I want to extend it to DevOps tools because these are crucial in an IT organization,
 and kinda awesome. And I also want to learn Rust and Go.
 
+Be aware that the tasks listed here may be modified as I advance in the project.
+
 ## Reports
 
 Here are the exercises I plan to do in order to train myself.
@@ -34,6 +36,8 @@ in [tutorials](tutorials).
 
 ### 2. Setting Up DevOps Foundations (CI/CD)
 
+<!-- TODO: Links to the reports everywhere it is possible -->
+
 - [ ] Setup GitLab Runners:
     - [X] On the host (rootless Podman).
     - [ ] Within VMs (VirtualBox).
@@ -48,9 +52,10 @@ in [tutorials](tutorials).
 
 ### 3. Building an Application (Rust & Go)
 
-- [ ] Create a library of random matrix multiplication in Rust
-using [BLAS](https://www.openblas.net/) and or
+- [ ] Create a library in Rust that involves matrix multiplication (TBD)
+- Use [BLAS](https://www.openblas.net/) and or
 [LAPACK](https://github.com/Reference-LAPACK/lapack).
+- [ ] Try to import C or C++ libraries in Rust to see how it is done.
 - [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the
 previous library.
 - [ ] Use GitLab CI/CD pipelines to run linting:
@@ -58,6 +63,7 @@ previous library.
     - [ ] Go
 - [ ] Add tests coverage
 - [ ] Add code formatter if possible
+- [ ] Make a RESTful API to interact with the application
 
 ### 4. Containerize the Application (Podman)
 
@@ -112,7 +118,9 @@ and disk usage.
 - [ ] Encrypt all the containers, the encryption key must be different for each of them.
 - [ ] Encrypt the logging container disk.
 
-## Documentations
+## References
+
+### Documentations
 
 - Rust: <https://doc.rust-lang.org/stable/book/>
 - Go: <https://go.dev/doc/tutorial/getting-started>
@@ -122,3 +130,11 @@ and disk usage.
 - Prometheus: <https://prometheus.io/docs/introduction/overview/>
 - Grafana: <https://grafana.com/docs/grafana/latest/getting-started/>
 - Kubernetes: <https://kubernetes.io/docs/setup/>
+
+## Usefull Links
+
+- CNCF Landscape: <https://landscape.cncf.io/> To know which solutions are most used and hence useful to learn.
+
+### Books
+
+- *Automating DevOps with GitLab CI/CD Pipelines* written by Christopher Cowell, Nicholas Lotz and Chris Timberlake.
