@@ -39,7 +39,7 @@ Shynamo
 statfs
 Timberlake
 TLDR
-unlabel
 Vassort
-vmware
 xclient
+unlabel
+vmware
