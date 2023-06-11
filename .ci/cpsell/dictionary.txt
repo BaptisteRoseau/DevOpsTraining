@@ -9,6 +9,7 @@ filemode
 gitlab
 LAPACK
 logallrefupdates
+Lotz
 metadatas
 pastable
 podman
@@ -18,11 +19,11 @@ pushurl
 pydantic
 repositoryformatversion
 rootful
+SAST
 sdnotify
 shynamo
 Shynamo
 statfs
-unlabel
-Lotz
 Timberlake
-SAST
+unlabel
+vmware
