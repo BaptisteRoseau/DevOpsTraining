@@ -1,12 +1,17 @@
 BLAS
+buildx
 CEST
 cgroups
 cidfile
 conmon
+containerd
+dearmor
 dpkg
 enablehrefrewrite
 filemode
 gitlab
+gnupg
+keyrings
 LAPACK
 logallrefupdates
 Lotz
@@ -14,6 +19,7 @@ metadatas
 pastable
 podman
 Podman
+Poulton
 publickey
 pushurl
 pydantic
