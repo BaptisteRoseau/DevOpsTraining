@@ -19,12 +19,12 @@ For this tutorial, we will assume that your company will run its GitLab instance
 - `2022` (host) -> `22` (container)
 - `20443` (host) -> `443` (container)
 
-You can of course change any of there values depending on you environment.
+You can of course change any of their values depending on your environment.
 
 *Notes:*
 
 - *Port 80 will not be forwarded because HTTPS only should be used.*
-- *It is also strongly recommended to use a VPN to make `1.2.3.4` only available to your coworkers, but this set up is outside of the scope of this tutorial.*
+- *It is also strongly recommended using a VPN to make `1.2.3.4` only available to your coworkers, but this set up is outside the scope of this tutorial.*
 
 ## Create A gitlab User (Optional)
 
@@ -108,7 +108,7 @@ To run a GitLab container, we will follow [this official tutorial](https://docs.
 
 First, login as the user who will host the GitLab server. Here we will assume it is the `gitlab` user.
 
-Then, choose a directory to store GitLab server's data. Here, we will assume that is is `$HOME/GitLabServer`.
+Then, choose a directory to store GitLab server's data. Here, we will assume that it is `$HOME/GitLabServer`.
 
 ```bash
 export GITLAB_HOME=$HOME/GitLabServer

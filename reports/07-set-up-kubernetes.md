@@ -44,7 +44,7 @@ Done.
 
 ### Install `k3s`
 
-`k3s` is a lightweight version of Kubernetes fully conformant with it.
+`k3s` is a lightweight version of Kubernetes but fully conforms with it.
 To install it, follow the [installation script](https://github.com/k3s-io/k3s#quick-start---install-script):
 
 ```bash

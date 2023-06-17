@@ -17,10 +17,12 @@ keyrings
 kubernetes
 Kustomize
 LAPACK
+letsencrypt
 logallrefupdates
 Lotz
 metadatas
 netfilter
+nginx
 pastable
 podman
 Podman
@@ -38,4 +40,6 @@ statfs
 Timberlake
 TLDR
 unlabel
+Vassort
 vmware
+xclient

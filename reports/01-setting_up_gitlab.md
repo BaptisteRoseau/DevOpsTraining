@@ -60,7 +60,7 @@ podman run --detach \
   gitlab/gitlab-ee:latest
 ```
 
-And boom ! GitLab was up and running ! I didn't know containers were so easy to manipulate and use to install software !
+And boom ! GitLab was up and running ! I didn't know containers were so easy to manipulate, install and use software !
 
 However, this port mapping caused many issues for cloning repositories and for LFS.
 For production environment, I would recommend using an [NGINX](https://www.nginx.com/) with port redirection based on your server's domain in a `docker-compose` pod.

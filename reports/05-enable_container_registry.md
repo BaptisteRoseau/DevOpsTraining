@@ -54,7 +54,7 @@ Too bad for us, the suffix is not valid:
 [2023-05-21T08:42:40+00:00] FATAL: Acme::Client::Error::RejectedIdentifier: letsencrypt_certificate[gitlab.shynamo] (letsencrypt::http_authorization line 6) had an error: Acme::Client::Error::RejectedIdentifier: acme_certificate[staging] (letsencrypt::http_authorization line 43) had an error: Acme::Client::Error::RejectedIdentifier: Error creating new order :: Cannot issue for "gitlab.shynamo": Domain name does not end with a valid public suffix (TLD)
 ```
 
-Because I run the server on localhost, let's add the `.local` suffix , hence `gitlab.shynamo.local`, re-configure everything and restart the service:
+Because I run the server on localhost, let's add the `.local` suffix, hence `gitlab.shynamo.local`, re-configure everything and restart the service:
 
 ```bash
 systemctl --user start container-gitlab
@@ -92,7 +92,7 @@ sudo podman run \
     nginx
 ```
 
-And FINALLY I can connect connect to my local gitlab through HTTPS.
+And FINALLY I can connect to my local gitlab through HTTPS.
 
 However, still no container registry in the GUI.
 
