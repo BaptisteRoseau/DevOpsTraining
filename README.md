@@ -73,8 +73,8 @@ previous library.
 
 - [ ] Measure MFlops, matrix sizes and steps, HTTP status code and response time and:
     - [ ] Make the HTTP metrics scraped by Prometheus
-    - [ ] Push the matrixes' metrics to Prometheus gateway
-    - [ ] Make the last matrixes' metrics available in the response
+    - [ ] Push the matrices' metrics to Prometheus gateway
+    - [ ] Make the last matrices' metrics available in the response
 - [ ] Add logging in the Go server.
     - [ ] Collect the logging using a specialized tool, and also send it to Prometheus.
 - [ ] Create Grafana Dashboards and Playlist.
@@ -96,12 +96,12 @@ previous library.
 - [ ] Spawn all the above, but all same matrix multiplication should be split over
 - [ ] multiple containers, possibly over multiple hosts.
 
-### 7. Set-up Alerts (Kubernetes & Grafana)
+### 8. Set-up Alerts (Kubernetes & Grafana)
 
-- [ ] Use Grafana to set-up alerts on critical errors.
-- [ ] Use Kubernetes to set-up alerts on critical errors.
+- [ ] Use Grafana to set up alerts on critical errors.
+- [ ] Use Kubernetes to set up alerts on critical errors.
 
-### 8. Actually Deploy the Application (AWS & GCP)
+### 9. Actually Deploy the Application (AWS & GCP)
 
 - [ ] Deploy the application in a free Amazon Web Server with restrictions over RAM and
 disk usage inside the app'.
@@ -131,7 +131,7 @@ and disk usage.
 - Grafana: <https://grafana.com/docs/grafana/latest/getting-started/>
 - Kubernetes: <https://kubernetes.io/docs/setup/>
 
-## Usefull Links
+## Useful Links
 
 - CNCF Landscape: <https://landscape.cncf.io/> To know which solutions are most used and hence useful to learn.
 
