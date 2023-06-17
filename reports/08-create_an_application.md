@@ -36,6 +36,8 @@ The binary should be compiled and released automatically through CI/CD pipelines
 
 Alternatively, I would also like to manage to create architecture-specific packages for at least amd64 and arm64, a source code and a windows release.
 
+If possible, I would like to find a way to reduce network load by caching downloaded crates directly through the _runner_ cache, not the pipeline.
+
 ## Set Up The Project
 
 First, install Rust. The [official installer](https://www.rust-lang.org/tools/install) recommends using:
