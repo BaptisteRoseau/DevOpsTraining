@@ -17,6 +17,8 @@ As every HTTP API having a little of professionalism, this one will require:
 - Custom error management: [anyhow](https://docs.rs/anyhow/latest/anyhow/) + [thiserror](https://docs.rs/thiserror/latest/thiserror/)
 - A swagger: [utoipa](https://docs.rs/utoipa/latest/utoipa/)
 
+HTTPS will be used and th application will be secured first with a security token middleware, and _maybe_ later with a login system.
+
 The configuration parameters priority will be from:
 
 1. CLI
