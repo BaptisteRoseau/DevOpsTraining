@@ -3,7 +3,7 @@
 Because this project relies mainly upon DevOps, the application does not matter that much.
 For the moment, I will create a simple HTTPS that allows CRUD actions on a HashMap.
 
-## Requirements
+## Specifications
 
 First I need to improve my Rust skills as I already learnt some of it between the start of this project and the lines I am writing right now.
 
@@ -30,6 +30,12 @@ Once this base is set up, it will be copied in my skeletons projects as I believ
 
 Even better, I believe the logging should optionally be able to be configured to be compatible with normalized formats such as Syslog, CEF or LEEF, and use key-value pairs when necessary. Maybe that is because I have a SIEM developer background. Maybe I will create my own logging crate for this purpose, who know ?
 
+### CI/CD
+
+The binary should be compiled and released automatically through CI/CD pipelines. It will always have the _dev_ version until a new tag is created, which will be the version of the released application.
+
+Alternatively, I would also like to manage to create architecture-specific packages for at least amd64 and arm64, a source code and a windows release.
+
 ## Set Up The Project
 
 First, install Rust. The [official installer](https://www.rust-lang.org/tools/install) recommends using:
@@ -47,3 +53,7 @@ cargo new application
 ```
 
 More information in the [Rust Book](https://doc.rust-lang.org/book/). I have already read half of it a strongly recommend reading it !
+
+## Set Up The CI/CD Pipelines
+
+<!-- TODO -->
