@@ -1,7 +1,7 @@
 # Create An Application
 
 Because this project relies mainly upon DevOps, the application does not matter that much.
-For the moment, I will create a simple HTTPS that allows CRUD actions on a HashMap.
+For the moment, I will create a simple HTTPS that allows CRUD actions on a HashMap, using REST standards.
 
 ## Specifications
 
