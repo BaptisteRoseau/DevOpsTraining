@@ -4,6 +4,7 @@ buildx
 CEST
 cgroups
 cidfile
+clippy
 conmon
 containerd
 dearmor

@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.71"
 clap = "4.3.4"
+clippy = "0.0.302"
 serde = "1.0.164"
 thiserror = "1.0.40"
 utoipa = "3.3.0"
