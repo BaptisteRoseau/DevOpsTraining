@@ -59,3 +59,31 @@ More information in the [Rust Book](https://doc.rust-lang.org/book/). I have alr
 ## Set Up The CI/CD Pipelines
 
 <!-- TODO -->
+
+## IDE
+
+Because the IDE configuration is super important to improve productivity, I installed the following VSCode extensions to analyze and auto-format code when saving.
+
+- [crates](https://open-vsx.org/extension/serayuzgur/crates)
+- [Error Len](https://open-vsx.org/extension/usernamehw/errorlens)
+- [rust-analyzer](https://open-vsx.org/extension/rust-lang/rust-analyzer)
+- [Better TOML](https://open-vsx.org/extension/bungcip/better-toml)
+
+For the auto formatting I added the following in my `settings.json`:
+
+```json
+{
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.formatOnSave": true
+  }
+}
+```
+
+And for the linting I installed [`clippy`](https://crates.io/crates/clippy), which I needed to enable in my IDE using:
+
+```json
+{
+  "rust-analyzer.check.command": "clippy"
+}
+```
