@@ -23,8 +23,10 @@ The configuration parameters priority will be from:
 
 1. CLI
 2. Environment variables
-3. Configuration
+3. Configuration File
 4. Defaults
+
+Actually, the _Configuration File_ can contain default overrides but mainly for parameters that do not belong to a CLI interface. This kind of parameters would otherwise pollute the helper as they can be very numerous and verbose.
 
 Once this base is set up, it will be copied in my skeletons projects as I believe every decent program should have at least CLI, config file and logging.
 
