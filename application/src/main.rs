@@ -4,13 +4,13 @@ mod logging;
 mod middleware;
 mod program;
 mod routes;
-use clap::Parser;
 use std::process::exit;
 
-fn main() {
-    let config = config::Config::parse();
+fn main() -> Result<(), anyhow::Error> {
+    let config = config::Config::parse_with_file()?;
     if let Err(error) = program::run(&config) {
         eprintln!("{}", error);
         exit(1);
     }
+    Ok(())
 }
