@@ -32,6 +32,8 @@ Once this base is set up, it will be copied in my skeletons projects as I believ
 
 Even better, I believe the logging should optionally be able to be configured to be compatible with normalized formats such as Syslog, CEF or LEEF, and use key-value pairs when necessary. Maybe that is because I have a SIEM developer background. Maybe I will create my own logging crate for this purpose, who know ?
 
+The template I use for my Rust projects have been pushed [here](https://github.com/Shynamo/templates/tree/main/languages/rust).
+
 ### CI/CD
 
 The binary should be compiled and released automatically through CI/CD pipelines. It will always have the _dev_ version until a new tag is created, which will be the version of the released application.
