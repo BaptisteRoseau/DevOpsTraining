@@ -10,6 +10,7 @@ pub(crate) fn init_logger(debug: bool) {
     env_logger::builder()
         .format_timestamp_millis()
         .format_module_path(false)
+        .format_target(false)
         .filter_level(level)
         .init();
 }
