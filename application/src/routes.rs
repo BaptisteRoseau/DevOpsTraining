@@ -8,24 +8,24 @@ use warp::{Filter, Rejection, Reply};
 pub(crate) fn routes(
     database: Database,
 ) -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
-    let get_item_filter = warp::path!("items" / Uuid)
+    let get_item_filter = warp::path!("v1" / "items" / Uuid)
         .and(warp::get())
         .and(with_database(database.clone()))
         .and_then(read_item);
 
-    let create_item_filter = warp::path!("items")
+    let create_item_filter = warp::path!("v1" / "items")
         .and(warp::post())
         .and(warp::body::json())
         .and(with_database(database.clone()))
         .and_then(create_item);
 
-    let update_item_filter = warp::path!("items" / Uuid)
+    let update_item_filter = warp::path!("v1" / "items" / Uuid)
         .and(warp::put())
         .and(warp::body::json())
         .and(with_database(database.clone()))
         .and_then(update_item);
 
-    let delete_item_filter = warp::path!("items" / Uuid)
+    let delete_item_filter = warp::path!("v1" / "items" / Uuid)
         .and(warp::delete())
         .and(with_database(database))
         .and_then(delete_item);
