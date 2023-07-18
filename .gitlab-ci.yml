@@ -77,10 +77,10 @@ lint-test-job:
       - "*.py"
       - "**/*.py"
   script:
-    - echo "Runing pylint tests"
+    - echo "Running pylint tests"
     - python3 -m pip install pylint mypy
     - python3 -m pylint src/**
-    - echo "Runing mypy tests"
+    - echo "Running mypy tests"
     - for file in $(find src -type f -name "*.py"); do python3 -m mypy $file; done
 
 bandit-test-job:

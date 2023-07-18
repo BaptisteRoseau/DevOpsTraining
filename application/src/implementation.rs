@@ -2,6 +2,11 @@ use crate::models::{Database, Item};
 use uuid::Uuid;
 use warp::{Rejection, Reply};
 
+/// Health Check of the API
+pub(crate) async fn ping() -> Result<impl Reply, Rejection> {
+    Ok(warp::reply::reply())
+}
+
 /// Creates a new item an returns its ID
 pub(crate) async fn create_item(
     new_item: Item,
