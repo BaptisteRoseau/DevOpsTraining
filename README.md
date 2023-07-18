@@ -11,19 +11,18 @@ and kinda awesome. And I also want to learn Rust and Go.
 
 Be aware that the tasks listed here may be modified as I advance in the project.
 
+WARNING: This project is currently paused as I work on another private project.
+However, during the development of this private project there will be DevOps steps mentioned here. I will then update reports in the current project regarding my DevOps training.
+
 ## Reports
 
 Here are the exercises I plan to do in order to train myself.
 Each step will be summarized in [reports](reports).
 
-<!-- TODO: TOC of the reports-->
-
 ## Tutorials
 
 Once in a while, a sanitized tutorial will be written to summarize a step
 in [tutorials](tutorials).
-
-<!-- TODO: TOC of the tutorials -->
 
 ## Steps
 
@@ -49,12 +48,10 @@ in [tutorials](tutorials).
     - [X] Find Broken Links in .md files
 - [X] Run the linter jobs, if and only, files of their according type have been modified.
 - [X] Run the linter jobs only on the files that have been modified.
+- [ ] Learn and set up Jenkins
 
 ### 3. Building an Application (Rust & Go)
 
-- [ ] Create a library in Rust that involves matrix multiplication (TBD)
-- Use [BLAS](https://www.openblas.net/) and or
-[LAPACK](https://github.com/Reference-LAPACK/lapack).
 - [ ] Try to import C or C++ libraries in Rust to see how it is done.
 - [ ] Create an HTTP server in Go to run a matrix multiplication through HTTP using the
 previous library.
@@ -62,12 +59,12 @@ previous library.
     - [ ] Rust
     - [ ] Go
 - [ ] Add tests coverage
-- [ ] Add code formatter if possible
+- [X] Add code formatter if possible
 - [ ] Make a RESTful API to interact with the application
 
 ### 4. Containerize the Application (Podman)
 
-- [ ] Build and run this application in a Debian container.
+- [X] Build and run this application in a Debian container.
 
 ### 5. Gather Metrics
 
@@ -95,6 +92,7 @@ previous library.
     - A container for logging management
 - [ ] Spawn all the above, but all same matrix multiplication should be split over
 - [ ] multiple containers, possibly over multiple hosts.
+- [ ] Learn Terraform
 
 ### 8. Set-up Alerts (Kubernetes & Grafana)
 
@@ -102,6 +100,11 @@ previous library.
 - [ ] Use Kubernetes to set up alerts on critical errors.
 
 ### 9. Actually Deploy the Application (AWS & GCP)
+
+- [ ] Learn Terraform
+- [ ] Use Terraform to set up an environment from a fresh installation able to run the application
+
+### 10. Actually Deploy the Application (AWS & GCP)
 
 - [ ] Deploy the application in a free Amazon Web Server with restrictions over RAM and
 disk usage inside the app'.
